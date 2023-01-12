@@ -7,6 +7,8 @@ using std::cin;
 using std::endl;
 using std::string;
 
+inline void keep_window_open() { char ch; cin >> ch; }
+
 void EjercicioUno();
 void EjercicioDos();
 void EjercicioTres();
@@ -16,8 +18,8 @@ void EjercicioSeis();
 void EjercicioSiete();
 void EjercicioOcho();
 void EjercicioNueve();
-void Ejercicio10();
-void Ejercicio11();
+void EjercicioDiez();
+void EjercicioOnce();
 
 int main() {
 	int opcion;
@@ -63,8 +65,54 @@ int main() {
 	return 0;
 }
 
+//Ejercicio que recopila las actividades de "Try this" hechas en el capítulo.
 void EjercicioUno() {
-	//ToDo
+
+	//Primer "Try this"
+	cout << "Introduzca su nombre y edad." << endl;
+	string nombre = "???";
+	double edad = 0;
+	cin >> nombre >> edad;
+	cout << "Hola, " << nombre << " (" << edad*12 << " meses)." << endl << endl;
+
+	//Segundo "Try this"
+	cout << "Por favor introduzca un valor de punto decimal: ";
+	int n;
+	cin >> n;
+	cout << "n == " << n << endl
+		<< "n + 1 == " << n + 1 << endl
+		<< "n dos veces == " << n + n << endl
+		<< "n al cuadrado == " << n * n << endl
+		<< "la mitad de n == " << n / 2 << endl
+		<< "raiz cuadrada de n ==" << sqrt(n) << endl
+		<< "modulo entre dos de n == " << n % 2 << endl;
+
+	//Tercer "Try this"
+	string anterior = "";
+	string actual;
+	while (cin >> actual) {
+		if (anterior == actual)
+			cout << "Palabra repetida: " << actual << endl;
+		anterior = actual;
+	}
+
+	//Cuarto "Try this"
+	
+	string s = "Adios, mundo cruel!";
+	cout << s << endl;
+	
+
+	//Quinto "Try this"
+	double d = 0;
+	while (cin >> d) {
+		int i = d;
+		char c = i;
+		int i2 = c;
+		cout << "d == " << d
+			<< "i == " << i
+			<< "i2 == " << i2
+			<< "char(" << c << ")" << endl;
+	}
 }
 
 //Este ejercicio convierte millas a kilometros en base al numero introducido por el usuario.
@@ -76,8 +124,15 @@ void EjercicioDos() {
 	cout << millas << " millas equivalen a " << kilometros << " kilometros.";
 }
 
+//Ejercicio que intencionalmente 
 void EjercicioTres() {
-	//ToDo
+	/*
+	int boolean = a;
+	double numero = 5.2;
+	boolean var = 15;
+	char char = j;
+	long long numeroLong = 54353465452367546545423;
+	*/
 }
 
 //Este ejercicio recibe dos enteros y determina cual es mayor de estos, su suma, su diferencia, su producto y el ratio de estos.
@@ -175,7 +230,49 @@ void EjercicioSeis() {
 
 //Este ejercicio recibe tres strings y los organiza alfabeticamente.
 void EjercicioSiete() {
-	//ToDo
+	string string1, string2, string3, max, med, min;
+	cout << "Introduzca tres palabras separadas por un espacio." << endl;
+	cin >> string1 >> string2 >> string3;
+	cout << "El orden actual de las palabras es: " << string1 << ", " << string2 << ", " << string3 << endl;
+
+	if (string1 > string2) {
+		if (string1 > string3) {
+			max = string1;
+			if (string2 > string3) {
+				med = string2;
+				min = string3;
+			}
+			else {
+				med = string3;
+				min = string2;
+			}
+		}
+		else {
+			max = string3;
+			med = string1;
+			min = string2;
+		}
+	}
+	else {
+		if (string2 > string3) {
+			max = string2;
+			if (string1 > string3) {
+				med = string1;
+				min = string3;
+			}
+			else {
+				med = string3;
+				min = string1;
+			}
+		}
+		else {
+			max = string3;
+			med = string2;
+			min = string1;
+		}
+	}
+
+	cout << "El orden alfabetico de las palabras es: " << min << ", " << med << ", " << max;
 }
 
 //Ejercicio que recibe un numero y determina si es par o non.
