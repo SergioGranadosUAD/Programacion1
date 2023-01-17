@@ -266,9 +266,29 @@ void EjercicioTres() {
 }
 
 //Ejercicio que adivina un numero en el que piensa un usuario del 1 al 100.
-//UNFINISHED
 void EjercicioCuatro() {
-
+	int inicio = 1, fin = 100, mitad;
+	char entrada;
+	while (inicio != fin) {
+		mitad = (inicio + fin) / 2;
+		cout << "El numero en el que estas pensando es menor o igual a " << mitad << "? ('s'/'='/'n')" << endl;
+		cin >> entrada;
+		switch (entrada) {
+		case 's':
+			fin = mitad;
+			break;
+		case '=':
+			inicio = mitad;
+			fin = mitad;
+		case 'n':
+			inicio = mitad;
+			break;
+		default:
+			cout << "No se introdujo una respuesta correcta. Intentelo nuevamente." << endl;
+			break;
+		}
+	}
+	cout << "El numero en el que piensas es " << inicio << endl;
 }
 
 //Este ejercicio emula una calculadora simple, haciendo las cuatro operaciones aritmeticas principales sobre dos numeros.
@@ -316,7 +336,6 @@ void EjercicioSeis() {
 }
 
 //Este ejercicio modifica la calculadora del ejercicio 5 para que solo acepte digitos en forma numerica o deletreados.
-//UNFINISHED
 void EjercicioSiete() {
 	string num1, num2;
 	double digito1 = 0, digito2 = 0;
@@ -429,7 +448,80 @@ void EjercicioNueve() {
 	}
 }
 
+//Ejercicio que emula un juego simple de piedra papel o tijeras usando condicionales switch y vectores.
 void EjercicioDiez() {
+	vector<char> listaJugadas;
+	int puntosJugador = 0, puntosPC = 0;
+	char entrada = 'a';
+
+	cout << "Introduzca una secuencia de jugadas para la computadora (r = piedra, p = papel, s = tijeras). Introduzca '0' para terminar." << endl;
+	while (entrada != '0') {
+
+		cin >> entrada;
+		if (entrada == 'r' || entrada == 'p' || entrada == 's') {
+			listaJugadas.push_back(entrada);
+		}
+		else if (entrada == '0') {
+			cout << "Se han terminado de introducir jugadas." << endl;
+		}
+		else {
+			cout << "No se introdujo una jugada correcta." << endl;
+		}
+
+	}
+	cout << "Este es un juego de Piedra Papel o Tijera." << endl;
+	for (int i = 0; i < listaJugadas.size(); ++i) {
+		cout << "Introduzca su siguiente jugada (r = piedra, p = papel, s = tijeras): " << endl;
+		cin >> entrada;
+		switch (entrada) {
+		case 'r':
+			if (listaJugadas[i] == 'r') {
+				cout << "Ha sido un empate!" << endl;
+			}
+			else if (listaJugadas[i] == 'p') {
+				cout << "Papel le gana a piedra. Perdiste!" << endl;
+				++puntosPC;
+			}
+			else {
+				cout << "Piedra le gana a tijeras. Ganaste!" << endl;
+				++puntosJugador;
+			}
+			break;
+		case 'p':
+			if (listaJugadas[i] == 'r') {
+				cout << "Papel le gana a piedra. Ganaste!" << endl;
+				++puntosJugador;
+			}
+			else if (listaJugadas[i] == 'p') {
+				cout << "Ha sido un empate!" << endl;
+			}
+			else {
+				cout << "Tijeras le gana a papel. Perdiste!" << endl;
+				++puntosPC;
+			}
+			break;
+		case 's':
+			if (listaJugadas[i] == 'r') {
+				cout << "Piedra le gana a tijeras. Pediste!" << endl;
+				++puntosPC;
+			}
+			else if (listaJugadas[i] == 'p') {
+				cout << "Tijeras le gana a papel. Ganaste!" << endl;
+				++puntosJugador;
+			}
+			else {
+				cout << "Ha sido un empate!" << endl;
+			}
+			break;
+		default:
+			cout << "No se introdujo un valor correcto. Intentelo nuevamente." << endl;
+			break;
+		}
+	}
+
+	cout << "Fin del juego! Puntuacion final: " << endl;
+	cout << "Jugador: " << puntosJugador << " victorias." << endl;
+	cout << "PC: " << puntosPC << " victorias." << endl;
 
 }
 
@@ -469,28 +561,66 @@ void EjercicioDoce() {
 	}
 }
 
-//Ejercicio que encuentra numeros primos ocupando el algoritmo de la Criba de Eratóstenes.
-//UNFINISHED
+//Ejercicio que encuentra los numeros primos del 1 al 100 ocupando el algoritmo de la Criba de Eratóstenes.
 void EjercicioTrece() {
-	vector<int> intLista;
-	int primoSiguiente = 0, primosEncontrados = 0;
+	vector<bool> esPrimo;
 
-	for (int i = 2; i <= 100; ++i) {
-		intLista.push_back(i);
+	double raizCien = sqrt(100);
+
+	for (int i = 0; i < 100; ++i) {
+		esPrimo.push_back(true);
 	}
 
-	primoSiguiente = intLista[0];
-	++primosEncontrados;
-	while (primosEncontrados != 0) {
-		for (int x : intLista) {
+	esPrimo[0] = false;
+	esPrimo[1] = false;
 
+	for (int i = 2; i < raizCien; ++i) {
+		if (esPrimo[i]) {
+			for (int j = i * i; j < 100; j += i) {
+				esPrimo[j] = false;
+			}
 		}
 	}
-	
+
+	cout << "Los numeros primos encontrados hasta " << 100 << " son: " << endl;
+	for (int i = 0; i < esPrimo.size(); ++i) {
+		if (esPrimo[i] == true) {
+			cout << i << " ";
+		}
+	}
 }
 
+//Ejercicio que modifica el ejercicio 13 para que acepte una entrada de numeros introducida por el usuario.
 void EjercicioCatorce() {
+	vector<bool> esPrimo;
+	int max;
 
+	cout << "Introduzca el numero maximo hasta el que desea obtener numeros primos." << endl;
+	cin >> max;
+
+	double raizMax = sqrt(max);
+
+	for (int i = 0; i < max; ++i) {
+		esPrimo.push_back(true);
+	}
+
+	esPrimo[0] = false;
+	esPrimo[1] = false;
+
+	for (int i = 2; i < raizMax; ++i) {
+		if (esPrimo[i]) {
+			for (int j = i * i; j < max; j += i) {
+				esPrimo[j] = false;
+			}
+		}
+	}
+
+	cout << "Los numeros primos encontrados hasta " << max << " son: " << endl;
+	for (int i = 0; i < esPrimo.size(); ++i) {
+		if (esPrimo[i] == true) {
+			cout << i << " ";
+		}
+	}
 }
 
 //Ejercicio que calcula la cantidad de numeros primos que le indique el usuario.
