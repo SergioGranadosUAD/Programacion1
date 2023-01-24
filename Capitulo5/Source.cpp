@@ -50,7 +50,6 @@ void formulaGeneral(double, double, double, double&, double&);
 int fib(int);
 
 int main() {
-	f(8, 5, 10);
 	int opcion;
 	cout << "Introduzca el numero del ejercicio al que desea acceder (del 1 al 14)." << endl;
 	cin >> opcion;
