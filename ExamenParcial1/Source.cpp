@@ -69,11 +69,14 @@ int main() {
 void EjercicioUno(){
 	string palabra = "";
 
-	cout << "Introduzca la palabra que desea verificar." << endl;
-	cin >> palabra;
+	cout << "Introduzca una palabra o frase que desea verificar." << endl;
+	cin.ignore(265, '\n');
+	getline(cin, palabra, '\n');
 
-	if (IsPalindrome(palabra)) cout << palabra << " es un palindromo." << endl;
-	else cout << palabra << " NO es un palindromo." << endl;
+	palabra.erase(remove(palabra.begin(), palabra.end(), ' '), palabra.end());
+
+	if (IsPalindrome(palabra)) cout << "El string introducido es un palindromo." << endl;
+	else cout << "El string introducido NO es un palindromo." << endl;
 }
 
 //Ejercicio que imprime n ciclos de la secuencia de fibonacci que le indica el usuario.
