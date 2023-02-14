@@ -38,6 +38,12 @@ void reverseCopy(const vector<int>&);
 void reverseModify(vector<int>&);
 void reverseCopyString(const vector<string>&);
 void reverseModifyString(vector<string>&);
+vector<int> letterCountString(const vector<string>&);
+string longestString(const vector<string>&);
+string shortestString(const vector<string>&);
+string lexFirstString(vector<string>);
+string lexLastString(vector<string>);
+
 
 vector<double> calculateIndex(const vector<double>&, const vector<double>&);
 double maxv(const vector<double>&);
@@ -156,7 +162,8 @@ int main() {
 	}
 }
 
-//Incompleta
+//En este caso para evitar hacer más completo e ilegible este archivo decidí modificar el programa de la calculadora en el capítulo 7,
+//por lo que los cambios se encuentran en ese archivo.
 void EjercicioUno() {
 
 }
@@ -388,9 +395,30 @@ void EjercicioDoce() {
 	print_until_ss(palabras, quit);
 }
 
-//Incompleta
+//Este ejercicio recibe un vector de strings y ocupa funciones para encontrar el numero de letras dentro de cada uno de los elementos de este,
+//así como encontrar el elemento más largo, el más corto, el primero y el último en orden lexicográfico.
 void EjercicioTrece() {
+	vector<string> palabras;
+	vector<int> conteoPalabras;
+	string word = "";
 
+	cout << "Introduzca las palabras que quiera enlistar. Introduzca Ctrl+Z para salir. " << endl;
+	while (cin >> word) {
+		if (cin.fail()) error("Error al introducir la palabra.");
+		palabras.push_back(word);
+	}
+
+	conteoPalabras = letterCountString(palabras);
+	cout << "El conteo de letras de cada elementro introducido es: (";
+	for (int i : conteoPalabras) cout << i << ", ";
+	cout << ")" << endl;
+	cout << "La palabra mas corta encontrada en la lista es: " << shortestString(palabras) << endl;
+	cout << "la palabra mas larga encontrada en la lista es: " << longestString(palabras) << endl;
+	cout << "la primera palabra en orden lexicografico de la lista es: " << lexFirstString(palabras) << endl;
+	cout << "la ultima palabra en orden lexicografico de la lista es: " << lexLastString(palabras) << endl;
+
+	//Ocupé cinco funciones, esto se debe a que es mejor separar cada tarea a una función para que sean más legibles, y se puedan reutilizar mejor
+	//según el uso que se requiera para esta.
 }
 
 //Este ejercicio explica explica qué pasa cuando se declara un argumento de función constante no referencial. Así como una pequeña prueba de su uso.
@@ -411,14 +439,14 @@ void error(string s) {
 	throw runtime_error(s);
 }
 
-//Funcion ocupada por el ejercicio 2, recibe una etiqueta y un vector e imprime todos los elementos de este vector.
+//Función ocupada por el ejercicio 2, recibe una etiqueta y un vector e imprime todos los elementos de este vector.
 void print(string label, const vector<int>& vector) {
 	for (int i : vector) {
 		cout << label << ": " << i << endl;
 	}
 }
 
-//Funcion ocupada por el ejercicio 3 y 4, recibe varios argumentos para calcular la secuencia de fibonacci e imprime la secuencia usando la funcion print().
+//Función ocupada por el ejercicio 3 y 4, recibe varios argumentos para calcular la secuencia de fibonacci e imprime la secuencia usando la funcion print().
 void fibonacci(int x, int y, vector<int>& v, int n) {
 	//Se asegura que el numero maximo sea positivo, de lo contrario regresa un error.
 	if (n >= 0) {
@@ -441,7 +469,7 @@ void fibonacci(int x, int y, vector<int>& v, int n) {
 	}
 }
 
-//Funcion ocupada por el ejercicio 5, crea una copia de un vector para invertur los elementos.
+//Función ocupada por el ejercicio 5, crea una copia de un vector para invertur los elementos.
 void reverseCopy(const vector<int>& v) {
 	vector<int> reverse;
 	for (int i = v.size()-1; i > 0; i--) {
@@ -455,7 +483,7 @@ void reverseCopy(const vector<int>& v) {
 	cout << endl;
 }
 
-//Funcion ocupada por el ejercicio 5, ocupa una referencia para modificar directamente el vector sin crear uno nuevo.
+//Función ocupada por el ejercicio 5, ocupa una referencia para modificar directamente el vector sin crear uno nuevo.
 void reverseModify(vector<int>& v) {
 	for (auto start = v.begin(), end = std::prev(v.end()); start < end; ++start, --end) {
 		swap(*start, *end);
@@ -468,7 +496,7 @@ void reverseModify(vector<int>& v) {
 	cout << endl;
 }
 
-//Funcion ocupada por el ejercicio 6, es la misma función del ejercicio 5 pero ocupando un string.
+//Función ocupada por el ejercicio 6, es la misma función del ejercicio 5 pero ocupando un string.
 void reverseCopyString(const vector<string>& v) {
 	vector<string> reverse;
 	for (int i = v.size()-1; i > 0; i--) {
@@ -482,7 +510,7 @@ void reverseCopyString(const vector<string>& v) {
 	cout << endl;
 }
 
-//Funcion ocupada por el ejercicio 6, es la misma función del ejercicio 5 pero ocupando un string.
+//Función ocupada por el ejercicio 6, es la misma función del ejercicio 5 pero ocupando un string.
 void reverseModifyString(vector<string>& v) {
 	for (auto start = v.begin(), end = std::prev(v.end()); start < end; ++start, --end) {
 		swap(*start, *end);
@@ -495,7 +523,7 @@ void reverseModifyString(vector<string>& v) {
 	cout << endl;
 }
 
-//Funcion ocupada por el ejercicio 9, calcula un vector con los indices de dos vectores de precio y peso y lo devuelve.
+//Función ocupada por el ejercicio 9, calcula un vector con los indices de dos vectores de precio y peso y lo devuelve.
 vector<double> calculateIndex(const vector<double>& price, const vector<double>& weight) {
 	vector<double> index;
 	if (weight.size() == price.size()) {
@@ -510,7 +538,7 @@ vector<double> calculateIndex(const vector<double>& price, const vector<double>&
 	return index;
 }
 
-//Funcion ocupada por el ejercicio 10, esta recibe un vector de tipo double y devuelve el valor mayor de este.
+//Función ocupada por el ejercicio 10, esta recibe un vector de tipo double y devuelve el valor mayor de este.
 double maxv(const vector<double>& v) {
 	double max = 0;
 	for (double i : v) {
@@ -520,7 +548,7 @@ double maxv(const vector<double>& v) {
 	return max;
 }
 
-//Funcion ocupada por el ejercicio 11, hace varios calculos sobre los elementos de un vector y devuelve el resultado de estos en un struct.
+//Función ocupada por el ejercicio 11, hace varios calculos sobre los elementos de un vector y devuelve el resultado de estos en un struct.
 Calculos calcularValores(vector<double>& v) {
 	Calculos resultados;
 	double max = 0;
@@ -550,7 +578,7 @@ Calculos calcularValores(vector<double>& v) {
 	return resultados;
 }
 
-//Funcion ocupada por el ejercicio 12, imprime un vector hasta que se encuentra una palabra de salida.
+//Función ocupada por el ejercicio 12, imprime un vector hasta que se encuentra una palabra de salida.
 void print_until_s(const vector<string>& v, string quit) {
 	for (string s : v) {
 		if (s == quit) return;
@@ -558,7 +586,7 @@ void print_until_s(const vector<string>& v, string quit) {
 	}
 }
 
-//Funcion ocupada por el ejercicio 12, imprime un vector hasta que se encuentra una palabra de salida por segunda ocasión.
+//Función ocupada por el ejercicio 12, imprime un vector hasta que se encuentra una palabra de salida por segunda ocasión.
 void print_until_ss(const vector<string>& v, string quit) {
 	int contador = 0;
 	for (string s : v) {
@@ -566,6 +594,73 @@ void print_until_ss(const vector<string>& v, string quit) {
 		if (contador == 2) return;
 		cout << s << endl;
 	}
+}
+
+//Función ocupada por el ejercicio 13, recibe un vector de Strings y devuelve un vector de Ints con el conteo de letras de cada uno de los elementos del
+//vector.
+vector<int> letterCountString(const vector<string>& v) {
+	if (v.size() < 1) {
+		error("El vector introducido no contiene elementos!");
+	}
+
+	vector<int> conteoLetras;
+	for (string val : v) {
+		int contador = 0;
+		for (int i = 0; i < val.size(); i++) {
+			contador++;
+		}
+		conteoLetras.push_back(contador);
+	}
+
+	return conteoLetras;
+}
+
+//Función ocupada por el ejercicio 13, recibe un vector de Strings y devuelve el string más corto.
+string longestString(const vector<string>& v) {
+	if (v.size() < 1) {
+		error("El vector introducido no contiene elementos!");
+	}
+
+	string longest = "";
+	for (string val : v) {
+		if (val.size() > longest.size()) longest = val;
+	}
+
+	return longest;
+}
+
+//Función ocupada por el ejercicio 13, recibe un vector de Strings y devuelve el string más largo.
+string shortestString(const vector<string>& v) {
+	if (v.size() < 1) {
+		error("El vector introducido no contiene elementos!");
+	}
+
+	string shortest = v[0];
+	for (string val : v) {
+		if (val.size() < shortest.size()) shortest = val;
+	}
+
+	return shortest;
+}
+
+//Función ocupada por el ejercicio 13, recibe un vector de Strings y devuelve el primer string en orden lexicográfico.
+string lexFirstString(vector<string> v) {
+	if (v.size() < 1) {
+		error("El vector introducido no contiene elementos!");
+	}
+
+	sort(v.begin(), v.end());
+	return v[0];
+}
+
+//Función ocupada por el ejercicio 13, recibe un vector de Strings y devuelve el último string en orden lexicográfico.
+string lexLastString(vector<string> v) {
+	if (v.size() < 1) {
+		error("El vector introducido no contiene elementos!");
+	}
+
+	sort(v.begin(), v.end());
+	return v[v.size() - 1];
 }
 
 //Funcion ocupada por el ejercicio 14, calcula el area de un circulo ocupando la constante de pi.

@@ -28,13 +28,7 @@ void EjercicioDiez();
 void EjercicioOnce();
 
 void calculate();
-void clean_up_mess();
 
-double declaration();
-double statement();
-double expression();
-double term();
-double primary();
 
 void error(string);
 
@@ -94,7 +88,7 @@ private:
 Token_stream::Token_stream() :
 	full(false), buffer(0) {}
 
-Token_stream ts;
+
 Symbol_table st;
 const int number = 8;
 const char printResult = ';';
@@ -110,7 +104,13 @@ const string logkey = "log";
 const string prompt = "> ";
 const string result = "= ";
 
+void clean_up_mess(Token_stream&);
 
+double declaration(Token_stream&);
+double statement(Token_stream&);
+double expression(Token_stream&);
+double term(Token_stream&);
+double primary(Token_stream&);
 
 int main() {
 	int opcion;
@@ -222,6 +222,7 @@ void EjercicioNueve() {
 
 }
 
+
 void EjercicioDiez() {
 
 }
@@ -237,6 +238,7 @@ void error(string s) {
 
 //Esta función evalua las expresiones introducidas hasta que le indique que pare.
 void calculate() {
+	Token_stream ts;
 	while (cin) {
 		try {
 			cout << prompt;
@@ -250,28 +252,28 @@ void calculate() {
 				PrintInstructions();
 			}
 			ts.putback(t);
-			cout << result << statement() << endl;
+			cout << result << statement(ts) << endl;
 		}
 		catch (runtime_error& e) {
 			cerr << e.what() << endl;
-			clean_up_mess();
+			clean_up_mess(ts);
 		}
 	}
 }
 
-double statement() {
+double statement(Token_stream& ts) {
 	Token t = ts.get();
 	switch (t.kind) {
 	case let:
-		return declaration();
+		return declaration(ts);
 	default:
 		ts.putback(t);
-		return expression();
+		return expression(ts);
 	}
 }
 
 //Esta función evalua si el token se trata de una expresión ocupando las reglas gramaticales actualizadas en el capítulo 7.
-double declaration() {
+double declaration(Token_stream& ts){
 	Token t = ts.get();
 	if (t.kind != name) error("Nombre esperado durante la declaracion.");
 	string var_name = t.name;
@@ -279,24 +281,24 @@ double declaration() {
 	Token t2 = ts.get();
 	if (t2.kind != '=') error("Falta '=' en la declaracion de la variable.");
 
-	double d = expression();
+	double d = expression(ts);
 	st.define_name(var_name, d);
 	
 	return d;
 }
 
 //Esta función evalua si el token se trata de una expresión ocupando las reglas gramaticales ya establecidas.
-double expression() {
-	double left = term();
+double expression(Token_stream& ts) {
+	double left = term(ts);
 	Token t = ts.get();
 	while (true) {
 		switch (t.kind) {
 		case '+':
-			left += term();
+			left += term(ts);
 			t = ts.get();
 			break;
 		case '-':
-			left -= term();
+			left -= term(ts);
 			t = ts.get();
 			break;
 		default:
@@ -307,24 +309,24 @@ double expression() {
 }
 
 //Esta función evalua si el token se trata de un termino ocupando las reglas gramaticales ya establecidas.
-double term() {
-	double left = primary();
+double term(Token_stream& ts) {
+	double left = primary(ts);
 	Token t = ts.get();
 	while (true) {
 		switch (t.kind) {
 		case '*':
-			left *= primary();
+			left *= primary(ts);
 			t = ts.get();
 			break;
 		case '/':
-		{ double d = primary();
+		{ double d = primary(ts);
 		if (d == 0) error("divide by zero");
 		left /= d;
 		t = ts.get();
 		break;
 		}
 		case '%':
-		{ double d = primary();
+		{ double d = primary(ts);
 		if (d == 0) error("divide by zero");
 		left = fmod(left, d);
 		t = ts.get();
@@ -338,26 +340,26 @@ double term() {
 }
 
 //Esta función evalua si el token se trata de un valor primario ocupando las reglas gramaticales ya establecidas.
-double primary() {
+double primary(Token_stream& ts) {
 	Token t = ts.get();
 	double d = 0;
 	switch (t.kind) {
 	case '{':
 	{
-		d = expression();
+		d = expression(ts);
 		t = ts.get();
 		if (t.kind != '}') error("'}' expected");
 		break;
 	}
 	case '(':
-		d = expression();
+		d = expression(ts);
 		t = ts.get();
 		if (t.kind != ')') error("')' expected");
 		break;
 	case name:
 	{ Token t2 = ts.get();
 	if (t2.kind == '=') {
-		d = expression();
+		d = expression(ts);
 		st.set_value(t.name, d);
 		return d;
 	}
@@ -373,7 +375,7 @@ double primary() {
 		double ln;
 		t = ts.get();
 		if(t.kind != '(') error("')' expected");
-		ln = expression();
+		ln = expression(ts);
 		//t = ts.get();
 		//if (t.kind != number) error("El valor introducido no es numerico");
 		d = log(ln);
@@ -381,10 +383,10 @@ double primary() {
 		if (t.kind != ')') error("')' expected");
 		break;
 	case '+':
-		d = primary();
+		d = primary(ts);
 		break;
 	case '-':
-		return -primary();
+		return -primary(ts);
 		break;
 	default:
 		error("primary expected");
@@ -490,7 +492,7 @@ void Token_stream::ignore(char c) {
 }
 
 //Esta función limpia el resto de la expresión hasta encontrar el caracter de impresión, permitiendo volver a calcular sin cerrar el programa.
-void clean_up_mess() {
+void clean_up_mess(Token_stream& ts) {
 	ts.ignore(printResult);
 }
 
