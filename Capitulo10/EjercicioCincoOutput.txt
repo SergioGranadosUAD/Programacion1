@@ -1,0 +1,15 @@
+Year 1990:
+Year 1991:
+	Month June:
+Year 1992:
+	Month January:
+		Reading 0:00 = 61.5
+	Month February:
+		Reading 1:00 = 64
+		Reading 2:00 = 65.2
+Year 2000:
+	Month February:
+		Reading 0:00 = 67.2
+		Reading 1:00 = 68
+		Reading 3:00 = 66.66
+	Month December:

@@ -1,0 +1,3 @@
+Osos: 15 Perros: 17 Elefantes: 2
+Koalas: 50 Gatos: 500
+Hamsters: 2000

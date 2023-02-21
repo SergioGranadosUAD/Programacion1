@@ -18,30 +18,44 @@
     <ClCompile Include="Source.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Chrono.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="NameValue.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Books.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Numbers.cpp">
+    <ClCompile Include="CapituloDiez.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Books.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Chrono.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="NameValue.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Numbers.h">
+    <Text Include="EjercicioUnoSuma.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="EjercicioOchoFile1.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="EjercicioOchoFile2.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="EjercicioOchoOutput.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="raw_temps.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="EjercicioNueveFile1.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="EjercicioNueveFile2.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="EjercicioNueveOutput.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="EjercicioCincoInput.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+    <Text Include="EjercicioCincoOutput.txt">
+      <Filter>Archivos de origen</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CapituloDiez.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

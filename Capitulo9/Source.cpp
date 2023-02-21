@@ -36,6 +36,7 @@ void EjercicioDieciseis();
 void EjercicioDiecisiete();
 void EjercicioDieciocho();
 
+
 enum ejercicios {
 	EJERCICIO_UNO = 1,
 	EJERCICIO_DOS,
@@ -67,7 +68,9 @@ int main() {
 
 			cin.clear();
 			cin >> eleccion;
-			if (cin.fail()) error("No se introdujo un numero entero.");
+			if (cin.fail()) {
+				error("No se introdujo un numero entero.");
+			} 
 
 			cout << endl;
 
@@ -357,4 +360,3 @@ void EjercicioDieciocho() {
 /*
 FUNCIONES OCUPADAS POR LOS EJERCICIOS
 */
-
