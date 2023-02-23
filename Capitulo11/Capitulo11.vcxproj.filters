@@ -18,45 +18,46 @@
     <ClCompile Include="Source.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="CapituloDiez.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="EjercicioCincoInput.txt">
+    <Text Include="EjercicioUnoInput.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-    <Text Include="EjercicioCincoOutput.txt">
+    <Text Include="EjercicioUnoOutput.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-    <Text Include="EjercicioNueveFile1.txt">
+    <Text Include="EjercicioTresOutput.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-    <Text Include="EjercicioNueveFile2.txt">
+    <Text Include="EjercicioDoceOutput.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-    <Text Include="EjercicioNueveOutput.txt">
+    <Text Include="EjercicioTreceOutput.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-    <Text Include="EjercicioOchoFile1.txt">
+    <Text Include="EjercicioQuinceInput.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-    <Text Include="EjercicioOchoFile2.txt">
+    <Text Include="EjercicioQuinceOutput.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="EjercicioDieciseisOutput.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="EjercicioNueveTextToBinary.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="EjercicioNueveBinaryToText.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="EjercicioNueveInputBinary.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="EjercicioSeisOutput.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
     <Text Include="EjercicioOchoOutput.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-    <Text Include="EjercicioUnoSuma.txt">
-      <Filter>Archivos de recursos</Filter>
-    </Text>
-    <Text Include="raw_temps.txt">
-      <Filter>Archivos de recursos</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CapituloDiez.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
