@@ -102,7 +102,7 @@ int main() {
 	SelectionSort(vector1, vector1.size());
 	stop = high_resolution_clock::now();
 	cout << "La duracion del SelectionSort sobre vector3 es: " << duration_cast<microseconds>(stop - start).count() << " ms" << endl;
-	
+
 
 	return 0;
 }
