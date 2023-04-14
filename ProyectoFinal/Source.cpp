@@ -1,19 +1,34 @@
 #include <iostream>
 #include <string>
 
+#include "WorldMap.h"
+#include "Player.h"
+#include "json.hpp"
+
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+using std::ifstream;
+using std::ofstream;
 
-void StartGame();
+using json = nlohmann::json;
+
+void NewGame();
 void SaveGame();
 void LoadGame();
 void ExitGame();
+void StartGame();
 
 void ToLowerString(string& s);
 
 int main() {
+
+	cout << ". . . . # . ." << endl;
+	cout << "# . . . # . ." << endl;
+	cout << "# # # # # # #" << endl;
+	cout << ". . . # # # ." << endl;
+	cout << ". . # # # # #" << endl;
 	bool salida = true;
 	cout << "Bienvenido a este juego de aventura de texto sencillo." << endl;
 	cout << "Escriba 'Iniciar' para empezar una nueva partida." << endl;
@@ -47,10 +62,25 @@ int main() {
 	return 0;
 }
 
-void StartGame();
-void SaveGame();
-void LoadGame();
-void ExitGame();
+void NewGame() {
+
+}
+
+void SaveGame() {
+
+}
+
+void LoadGame() {
+
+}
+
+void ExitGame() {
+
+}
+
+void StartGame() {
+
+}
 
 void ToLowerString(string& s) {
 	for (char& c : s) {

@@ -8,13 +8,17 @@ using std::string;
 
 class Room {
 public:
-private:
+	bool checkMovement(string direction);
+
 	int posX;
 	int posY;
+
+private:
+	string description;
 	bool canMoveRight;
 	bool canMoveLeft;
-	bool canMoveBackwards;
 	bool canMoveForward;
+	bool canMoveBackwards;
 	bool isExplored;
 	vector<Items> roomItems;
 };
