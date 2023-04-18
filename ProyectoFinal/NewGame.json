@@ -1,18 +1,29 @@
 {
   "worldMap": {
     "sizeX": 7,
-    "sizeY": 7,
+    "sizeY": 8,
     "rooms": {
       "room1": {
-        "posX": 0,
-        "posY": 4,
+        "posX": 1,
+        "posY": 2,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": false,
         "canMoveForward": false,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
+            "name": "test",
+            "description": "test",
+            "isAvailable": false
+          },
+          "item2": {
+            "name": "test",
+            "description": "test",
+            "isAvailable": false
+          },
+          "item3": {
             "name": "test",
             "description": "test",
             "isAvailable": false
@@ -20,13 +31,14 @@
         }
       },
       "room2": {
-        "posX": 0,
+        "posX": 1,
         "posY": 3,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": false,
         "canMoveForward": true,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -36,13 +48,14 @@
         }
       },
       "room3": {
-        "posX": 1,
+        "posX": 2,
         "posY": 3,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": true,
         "canMoveForward": false,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -52,13 +65,14 @@
         }
       },
       "room4": {
-        "posX": 2,
+        "posX": 3,
         "posY": 3,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": true,
         "canMoveForward": false,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -68,13 +82,14 @@
         }
       },
       "room5": {
-        "posX": 3,
+        "posX": 4,
         "posY": 3,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": true,
         "canMoveForward": true,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -84,13 +99,14 @@
         }
       },
       "room6": {
-        "posX": 4,
+        "posX": 5,
         "posY": 3,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": true,
         "canMoveForward": false,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -100,13 +116,14 @@
         }
       },
       "room7": {
-        "posX": 3,
-        "posY": 4,
+        "posX": 4,
+        "posY": 2,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": false,
         "canMoveForward": false,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -116,13 +133,14 @@
         }
       },
       "room8": {
-        "posX": 3,
-        "posY": 5,
+        "posX": 4,
+        "posY": 1,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": false,
         "canMoveForward": false,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -132,13 +150,14 @@
         }
       },
       "room9": {
-        "posX": 2,
-        "posY": 2,
+        "posX": 3,
+        "posY": 4,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": true,
         "canMoveForward": true,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -148,13 +167,14 @@
         }
       },
       "room10": {
-        "posX": 1,
-        "posY": 2,
+        "posX": 2,
+        "posY": 4,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": false,
         "canMoveForward": false,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -164,13 +184,14 @@
         }
       },
       "room11": {
-        "posX": 1,
-        "posY": 1,
+        "posX": 2,
+        "posY": 5,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": false,
         "canMoveForward": true,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -180,13 +201,14 @@
         }
       },
       "room12": {
-        "posX": 2,
-        "posY": 1,
+        "posX": 3,
+        "posY": 5,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": false,
         "canMoveForward": true,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -196,13 +218,14 @@
         }
       },
       "room13": {
-        "posX": 2,
-        "posY": 0,
+        "posX": 3,
+        "posY": 6,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": true,
         "canMoveForward": true,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -212,13 +235,14 @@
         }
       },
       "room14": {
-        "posX": 1,
-        "posY": 0,
+        "posX": 2,
+        "posY": 6,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": false,
         "canMoveForward": false,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -228,13 +252,14 @@
         }
       },
       "room15": {
-        "posX": 3,
-        "posY": 0,
+        "posX": 4,
+        "posY": 6,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": true,
         "canMoveForward": false,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -244,13 +269,14 @@
         }
       },
       "room16": {
-        "posX": 3,
-        "posY": 2,
+        "posX": 4,
+        "posY": 4,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": true,
         "canMoveForward": false,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -260,13 +286,14 @@
         }
       },
       "room17": {
-        "posX": 3,
-        "posY": 1,
+        "posX": 4,
+        "posY": 5,
         "description": "placeholder",
         "canMoveRight": true,
         "canMoveLeft": false,
         "canMoveForward": true,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -276,13 +303,14 @@
         }
       },
       "room18": {
-        "posX": 4,
-        "posY": 1,
+        "posX": 5,
+        "posY": 5,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": true,
         "canMoveForward": true,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -292,13 +320,14 @@
         }
       },
       "room19": {
-        "posX": 4,
-        "posY": 2,
+        "posX": 5,
+        "posY": 4,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": false,
         "canMoveForward": false,
         "canMoveBackwards": true,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -308,13 +337,14 @@
         }
       },
       "room20": {
-        "posX": 4,
-        "posY": 0,
+        "posX": 5,
+        "posY": 6,
         "description": "placeholder",
         "canMoveRight": false,
         "canMoveLeft": false,
         "canMoveForward": true,
         "canMoveBackwards": false,
+        "isExplored": false,
         "items": {
           "item1": {
             "name": "test",
@@ -324,7 +354,7 @@
         }
       }
     }
-  }
+  },
 
   "player": {
     "posX": 2,

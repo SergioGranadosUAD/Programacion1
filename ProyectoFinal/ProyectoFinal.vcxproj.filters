@@ -46,8 +46,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Rooms.txt">
+    <None Include="NewGame.json">
       <Filter>Archivos de recursos</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>

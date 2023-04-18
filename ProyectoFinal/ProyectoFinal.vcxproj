@@ -140,7 +140,7 @@
     <ClInclude Include="WorldMap.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Rooms.txt" />
+    <None Include="NewGame.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

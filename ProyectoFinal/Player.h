@@ -11,7 +11,6 @@ public:
 	bool getItem();
 
 private:
-	
 	int posX;
 	int posY;
 	map<string, bool> inventory;
