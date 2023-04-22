@@ -357,10 +357,13 @@
   },
 
   "player": {
-    "posX": 2,
+    "posX": 3,
     "posY": 3,
     "inventory": {
-
+      "item1": false,
+      "item2": false,
+      "item3": false,
+      "item4": false
     }
   }
 }

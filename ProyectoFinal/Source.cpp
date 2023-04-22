@@ -3,7 +3,6 @@
 #include <string>
 
 #include "WorldMap.h"
-#include "Player.h"
 #include "json.hpp"
 
 using std::cout;
@@ -16,13 +15,14 @@ using std::to_string;
 
 using json = nlohmann::json;
 
-void NewGame();
+WorldMap* NewGame();
 void SaveGame();
 void LoadGame();
 void ExitGame();
-void StartGame();
-Room constructRoom(const json& data, const string& i);
+void StartGame(WorldMap* worldMap);
+Room* constructRoom(const json& data, const string& i);
 Items constructItem(const json& data, const string& actualRoom, const string& itemIterator);
+Player* constructPlayer(const json& data);
 
 void ToLowerString(string& s);
 
@@ -40,7 +40,7 @@ int main() {
 		ToLowerString(seleccion);
 
 		if (seleccion == "iniciar") {
-			NewGame();
+			StartGame(NewGame());
 		}
 		else if (seleccion == "continuar") {
 			cout << "Continuar" << endl;
@@ -60,7 +60,7 @@ int main() {
 	return 0;
 }
 
-void NewGame() {
+WorldMap* NewGame() {
 	string inputFileName = "NewGame.json";
 	ifstream inputFile { inputFileName };
 	if (!inputFile) {
@@ -72,7 +72,9 @@ void NewGame() {
 	int worldMapSizeX = data["worldMap"]["sizeX"];
 	int worldMapSizeY = data["worldMap"]["sizeY"];
 
-	vector<Room> gameRooms;
+	Player* worldMapPlayer = constructPlayer(data);
+
+	vector<Room*> gameRooms;
 	
 	int roomIterator = 1;
 	while (data["worldMap"]["rooms"].contains("room" + to_string(roomIterator))) {
@@ -80,10 +82,9 @@ void NewGame() {
 		++roomIterator;
 	}
 
-	WorldMap wm = WorldMap{ worldMapSizeX, worldMapSizeY, gameRooms };
-	cout << "worldmap generated successfully" << endl;
-	wm.PrintMap();
+	WorldMap* wm = new WorldMap { worldMapSizeX, worldMapSizeY, worldMapPlayer, gameRooms };
 	
+	return wm;
 }
 
 void SaveGame() {
@@ -98,8 +99,8 @@ void ExitGame() {
 
 }
 
-void StartGame() {
-
+void StartGame(WorldMap* worldMap) {
+	worldMap->PrintMap();
 }
 
 void ToLowerString(string& s) {
@@ -108,7 +109,7 @@ void ToLowerString(string& s) {
 	}
 }
 
-Room constructRoom(const json& data, const string& i) {
+Room* constructRoom(const json& data, const string& i) {
 	string actualRoom = "room" + i;
 
 	int roomPosX = data["worldMap"]["rooms"][actualRoom]["posX"];
@@ -127,7 +128,7 @@ Room constructRoom(const json& data, const string& i) {
 		++itemIterator;
 	}
 
-	return Room{roomPosX, roomPosY, roomDescription, roomCanMoveRight, roomCanMoveLeft, roomCanMoveForward,
+	return new Room{roomPosX, roomPosY, roomDescription, roomCanMoveRight, roomCanMoveLeft, roomCanMoveForward,
 	roomCanMoveBackwards, roomIsExplored, roomItems};
 }
 
@@ -138,4 +139,16 @@ Items constructItem(const json& data, const string& actualRoom, const string& it
 	string itemDescription = data["worldMap"]["rooms"][actualRoom]["items"][actualItem]["description"];
 	bool itemIsAvaiable = data["worldMap"]["rooms"][actualRoom]["items"][actualItem]["isAvailable"];
 	return Items{itemName, itemDescription, itemIsAvaiable};
+}
+
+Player* constructPlayer(const json& data) {
+	int playerPosX = data["player"]["posX"];
+	int playerPosY = data["player"]["posY"];
+
+	map<string, bool> playerInventory;
+	playerInventory["item1"] = data["player"]["inventory"]["item1"];
+	playerInventory["item2"] = data["player"]["inventory"]["item2"];
+	playerInventory["item3"] = data["player"]["inventory"]["item3"];
+
+	return new Player{ playerPosX, playerPosY, playerInventory };
 }

@@ -8,7 +8,9 @@ using std::string;
 
 class Room {
 public:
-	int posX;
+	//Room() {};
+	//~Room() {};
+	int m_posX;
 	int posY;
 	string description;
 	bool canMoveRight;
@@ -19,7 +21,5 @@ public:
 	vector<Items> roomItems;
 
 	bool checkMovement(string direction);
-
-	
 private:
 };
