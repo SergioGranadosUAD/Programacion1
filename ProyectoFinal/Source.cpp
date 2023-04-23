@@ -271,10 +271,15 @@ Player* constructPlayer(const json& data) {
 	int playerPosY = data["player"]["posY"];
 
 	map<string, bool> playerInventory;
-	playerInventory["item1"] = data["player"]["inventory"]["item1"];
-	playerInventory["item2"] = data["player"]["inventory"]["item2"];
-	playerInventory["item3"] = data["player"]["inventory"]["item3"];
-	playerInventory["item4"] = data["player"]["inventory"]["item4"];
+	playerInventory["llave diamantes"] = data["player"]["inventory"]["llave diamantes"];
+	playerInventory["llave corazones"] = data["player"]["inventory"]["llave corazones"];
+	playerInventory["llave treboles"] = data["player"]["inventory"]["llave treboles"];
+	playerInventory["llave picas"] = data["player"]["inventory"]["llave picas"];
+	playerInventory["moneda"] = data["player"]["inventory"]["moneda"];
+	playerInventory["guantes de electricista"] = data["player"]["inventory"]["guantes de electricista"];
+	playerInventory["martillo"] = data["player"]["inventory"]["martillo"];
+	playerInventory["nota"] = data["player"]["inventory"]["nota"];
+	playerInventory["valvula"] = data["player"]["inventory"]["valvula"];
 
 	return new Player{ playerPosX, playerPosY, playerInventory };
 }
