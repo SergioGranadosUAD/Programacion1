@@ -97,7 +97,12 @@
         "canMoveBackwards": false,
         "isExplored": false,
         "items": {
-
+          "item1": {
+            "name": "test",
+            "description": "test",
+            "isAvailable": false,
+            "interactionType": 0
+          }
         }
       },
       "room6": {

@@ -17,14 +17,18 @@ using std::istringstream;
 
 using json = nlohmann::json;
 
-WorldMap* NewGame();
-void SaveGame(const WorldMap wm);
-void LoadGame();
+WorldMap* NewGame(const string& loadMode);
+void SaveGame(const WorldMap* wm);
 void ExitGame();
 void StartGame(WorldMap* worldMap);
+
 Room* constructRoom(const json& data, const string& i);
 Items constructItem(const json& data, const string& actualRoom, const string& itemIterator);
 Player* constructPlayer(const json& data);
+
+void saveRooms(json& saveData, const WorldMap* wm);
+void saveItems(json& saveData, const WorldMap* wm, const string& actualRoom, const Room*& room);
+void savePlayer(json& saveData, const WorldMap* wm);
 
 void ToLowerString(string& s);
 
@@ -43,10 +47,10 @@ int main() {
 		ToLowerString(seleccion);
 
 		if (seleccion == "iniciar") {
-			StartGame(NewGame());
+			StartGame(NewGame("NewGame.json"));
 		}
 		else if (seleccion == "continuar") {
-			cout << "Continuar" << endl;
+			StartGame(NewGame("SavedGame.json"));
 		}
 		else if (seleccion == "salir") {
 			cout << "Se ha terminado el programa." << endl;
@@ -64,8 +68,8 @@ int main() {
 	return 0;
 }
 
-WorldMap* NewGame() {
-	string inputFileName = "NewGame.json";
+WorldMap* NewGame(const string& loadMode) {
+	string inputFileName = loadMode;
 	ifstream inputFile { inputFileName };
 	if (!inputFile) {
 		//error("No se pudo abrir el archivo de entrada.");
@@ -91,7 +95,7 @@ WorldMap* NewGame() {
 	return wm;
 }
 
-void SaveGame(const WorldMap wm) {
+void SaveGame(const WorldMap* wm) {
 	string outputFileName = "SavedGame.json";
 	ofstream outputFile{ outputFileName };
 
@@ -100,10 +104,16 @@ void SaveGame(const WorldMap wm) {
 	}
 
 	json saveData;
-}
 
-void LoadGame() {
+	saveData["worldMap"]["sizeX"] = wm->m_sizeX;
+	saveData["worldMap"]["sizeY"] = wm->m_sizeY;
 
+	saveRooms(saveData, wm);
+	savePlayer(saveData, wm);
+
+	outputFile << std::setw(4) << saveData;
+
+	cout << "El juego se ha guardado satisfactoriamente!" << endl;
 }
 
 void ExitGame() {
@@ -192,7 +202,7 @@ void StartGame(WorldMap* worldMap) {
 			}
 		}
 		else if (comando == "guardar") {
-			SaveGame();
+			SaveGame(worldMap);
 		}
 		else if (comando == "salir") {
 			cout << "Esta seguro de que desea salir de la partida? Se perdera el progreso no guardado" << endl
@@ -264,6 +274,47 @@ Player* constructPlayer(const json& data) {
 	playerInventory["item1"] = data["player"]["inventory"]["item1"];
 	playerInventory["item2"] = data["player"]["inventory"]["item2"];
 	playerInventory["item3"] = data["player"]["inventory"]["item3"];
+	playerInventory["item4"] = data["player"]["inventory"]["item4"];
 
 	return new Player{ playerPosX, playerPosY, playerInventory };
+}
+
+void saveRooms(json& saveData, const WorldMap* wm) {
+	int roomIterator = 1;
+	for (const Room* r : wm->m_rooms) {
+		string actualRoom = "room" + to_string(roomIterator);
+		saveData["worldMap"]["rooms"][actualRoom]["posX"] = r->m_posX;
+		saveData["worldMap"]["rooms"][actualRoom]["posY"] = r->m_posY;
+		saveData["worldMap"]["rooms"][actualRoom]["description"] = r->m_description;
+		saveData["worldMap"]["rooms"][actualRoom]["canMoveRight"] = r->m_canMoveRight;
+		saveData["worldMap"]["rooms"][actualRoom]["canMoveLeft"] = r->m_canMoveLeft;
+		saveData["worldMap"]["rooms"][actualRoom]["canMoveForward"] = r->m_canMoveForward;
+		saveData["worldMap"]["rooms"][actualRoom]["canMoveBackwards"] = r->m_canMoveBackwards;
+		saveData["worldMap"]["rooms"][actualRoom]["isExplored"] = r->m_isExplored;
+
+		saveItems(saveData, wm, actualRoom, r);
+		++roomIterator;
+	}
+}
+
+void saveItems(json& saveData, const WorldMap* wm, const string& actualRoom, const Room*& room) {
+	int itemIterator = 1;
+	for (const Items& i : room->m_roomItems) {
+		string actualItem = "item" + to_string(itemIterator);
+		saveData["worldMap"]["rooms"][actualRoom]["items"][actualItem]["name"] = i.m_name;
+		saveData["worldMap"]["rooms"][actualRoom]["items"][actualItem]["description"] = i.m_description;
+		saveData["worldMap"]["rooms"][actualRoom]["items"][actualItem]["isAvailable"] = i.m_isAvailable;
+		saveData["worldMap"]["rooms"][actualRoom]["items"][actualItem]["interactionType"] = static_cast<int>(i.m_interactionType);
+		++itemIterator;
+	}
+}
+
+void savePlayer(json& saveData, const WorldMap* wm) {
+	saveData["player"]["posX"] = wm->m_hero->posX;
+	saveData["player"]["posY"] = wm->m_hero->posY;
+
+
+	for (const auto& pair : wm->m_hero->inventory) {
+		saveData["player"]["inventory"][pair.first] = pair.second;
+	}
 }

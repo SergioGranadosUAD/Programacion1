@@ -1,0 +1,390 @@
+{
+    "player": {
+        "inventory": {
+            "item1": false,
+            "item2": false,
+            "item3": false,
+            "item4": false
+        },
+        "posX": 3,
+        "posY": 3
+    },
+    "worldMap": {
+        "rooms": {
+            "room1": {
+                "canMoveBackwards": true,
+                "canMoveForward": false,
+                "canMoveLeft": false,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    },
+                    "item2": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    },
+                    "item3": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 1,
+                "posY": 2
+            },
+            "room10": {
+                "canMoveBackwards": true,
+                "canMoveForward": false,
+                "canMoveLeft": false,
+                "canMoveRight": true,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 2,
+                "posY": 4
+            },
+            "room11": {
+                "canMoveBackwards": false,
+                "canMoveForward": true,
+                "canMoveLeft": false,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 2,
+                "posY": 5
+            },
+            "room12": {
+                "canMoveBackwards": true,
+                "canMoveForward": true,
+                "canMoveLeft": false,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 3,
+                "posY": 5
+            },
+            "room13": {
+                "canMoveBackwards": false,
+                "canMoveForward": true,
+                "canMoveLeft": true,
+                "canMoveRight": true,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 3,
+                "posY": 6
+            },
+            "room14": {
+                "canMoveBackwards": false,
+                "canMoveForward": false,
+                "canMoveLeft": false,
+                "canMoveRight": true,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 2,
+                "posY": 6
+            },
+            "room15": {
+                "canMoveBackwards": false,
+                "canMoveForward": false,
+                "canMoveLeft": true,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 4,
+                "posY": 6
+            },
+            "room16": {
+                "canMoveBackwards": true,
+                "canMoveForward": false,
+                "canMoveLeft": true,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 4,
+                "posY": 4
+            },
+            "room17": {
+                "canMoveBackwards": false,
+                "canMoveForward": true,
+                "canMoveLeft": false,
+                "canMoveRight": true,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 4,
+                "posY": 5
+            },
+            "room18": {
+                "canMoveBackwards": true,
+                "canMoveForward": true,
+                "canMoveLeft": true,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 5,
+                "posY": 5
+            },
+            "room19": {
+                "canMoveBackwards": true,
+                "canMoveForward": false,
+                "canMoveLeft": false,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 5,
+                "posY": 4
+            },
+            "room2": {
+                "canMoveBackwards": false,
+                "canMoveForward": true,
+                "canMoveLeft": false,
+                "canMoveRight": true,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 1,
+                "posY": 3
+            },
+            "room20": {
+                "canMoveBackwards": false,
+                "canMoveForward": true,
+                "canMoveLeft": false,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 5,
+                "posY": 6
+            },
+            "room3": {
+                "canMoveBackwards": false,
+                "canMoveForward": false,
+                "canMoveLeft": true,
+                "canMoveRight": true,
+                "description": "Te encuentras en un cuarto que tiene una tuberia atravesandolo de forma vertical. Hay una puerta a tu derecha y otra tu izquierda.",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "Al observar detenidamente la tuberia puedes observar que le falta una valvula. Te preguntas a donde estara conectada la tuberia.",
+                        "interactionType": 0,
+                        "isAvailable": true,
+                        "name": "tuberia"
+                    }
+                },
+                "posX": 2,
+                "posY": 3
+            },
+            "room4": {
+                "canMoveBackwards": true,
+                "canMoveForward": false,
+                "canMoveLeft": true,
+                "canMoveRight": true,
+                "description": "Te encuentras en un cuarto espacioso. Frente a ti hay un pedestal que contiene cuatro agujeros de llave. Puedes ver puertas a tu derecha y a tu izquierda, asi como una escalera que lleva a un piso inferior.",
+                "isExplored": true,
+                "items": {
+                    "item1": {
+                        "description": "Al observar el pedestal detenidamente puedes apreciar que cada agujero de llave tiene una figura correspondiente a una baraja. (corazon, diamante, trebol y pica).",
+                        "interactionType": 0,
+                        "isAvailable": true,
+                        "name": "pedestal"
+                    }
+                },
+                "posX": 3,
+                "posY": 3
+            },
+            "room5": {
+                "canMoveBackwards": false,
+                "canMoveForward": true,
+                "canMoveLeft": true,
+                "canMoveRight": true,
+                "description": "Te encuentras en un cuarto vacio. Puedes ver puertas a tu derecha y a tu izquierda, asi como una escalera que te permite escalar a un piso superior.",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 4,
+                "posY": 3
+            },
+            "room6": {
+                "canMoveBackwards": false,
+                "canMoveForward": false,
+                "canMoveLeft": true,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 5,
+                "posY": 3
+            },
+            "room7": {
+                "canMoveBackwards": true,
+                "canMoveForward": false,
+                "canMoveLeft": false,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 4,
+                "posY": 2
+            },
+            "room8": {
+                "canMoveBackwards": true,
+                "canMoveForward": false,
+                "canMoveLeft": false,
+                "canMoveRight": false,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 4,
+                "posY": 1
+            },
+            "room9": {
+                "canMoveBackwards": true,
+                "canMoveForward": true,
+                "canMoveLeft": true,
+                "canMoveRight": true,
+                "description": "placeholder",
+                "isExplored": false,
+                "items": {
+                    "item1": {
+                        "description": "test",
+                        "interactionType": 0,
+                        "isAvailable": false,
+                        "name": "test"
+                    }
+                },
+                "posX": 3,
+                "posY": 4
+            }
+        },
+        "sizeX": 7,
+        "sizeY": 8
+    }
+}
