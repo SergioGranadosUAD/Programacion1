@@ -7,13 +7,11 @@ using std::map;
 
 class Player {
 public:
+	void movePlayer(const string& dir);
+
 	int posX;
 	int posY;
 	map<string, bool> inventory;
-
-	void addItem();
-	bool getItem();
-
 private:
 	
 };

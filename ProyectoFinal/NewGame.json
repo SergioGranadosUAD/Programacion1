@@ -16,17 +16,20 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           },
           "item2": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           },
           "item3": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -43,14 +46,15 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
       "room3": {
         "posX": 2,
         "posY": 3,
-        "description": "placeholder",
+        "description": "Te encuentras en un cuarto que tiene una tuberia atravesandolo de forma vertical. Hay una puerta a tu derecha y otra tu izquierda.",
         "canMoveRight": true,
         "canMoveLeft": true,
         "canMoveForward": false,
@@ -58,44 +62,42 @@
         "isExplored": false,
         "items": {
           "item1": {
-            "name": "test",
-            "description": "test",
-            "isAvailable": false
+            "name": "tuberia",
+            "description": "Al observar detenidamente la tuberia puedes observar que le falta una valvula. Te preguntas a donde estara conectada la tuberia.",
+            "isAvailable": true,
+            "interactionType": 0
           }
         }
       },
       "room4": {
         "posX": 3,
         "posY": 3,
-        "description": "placeholder",
+        "description": "Te encuentras en un cuarto espacioso. Frente a ti hay un pedestal que contiene cuatro agujeros de llave. Puedes ver puertas a tu derecha y a tu izquierda, asi como una escalera que lleva a un piso inferior.",
         "canMoveRight": true,
         "canMoveLeft": true,
         "canMoveForward": false,
         "canMoveBackwards": true,
-        "isExplored": false,
+        "isExplored": true,
         "items": {
           "item1": {
-            "name": "test",
-            "description": "test",
-            "isAvailable": false
+            "name": "pedestal",
+            "description": "Al observar el pedestal detenidamente puedes apreciar que cada agujero de llave tiene una figura correspondiente a una baraja. (corazon, diamante, trebol y pica).",
+            "isAvailable": true,
+            "interactionType": 0
           }
         }
       },
       "room5": {
         "posX": 4,
         "posY": 3,
-        "description": "placeholder",
+        "description": "Te encuentras en un cuarto vacio. Puedes ver puertas a tu derecha y a tu izquierda, asi como una escalera que te permite escalar a un piso superior.",
         "canMoveRight": true,
         "canMoveLeft": true,
         "canMoveForward": true,
         "canMoveBackwards": false,
         "isExplored": false,
         "items": {
-          "item1": {
-            "name": "test",
-            "description": "test",
-            "isAvailable": false
-          }
+
         }
       },
       "room6": {
@@ -111,7 +113,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -128,7 +131,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -145,7 +149,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -162,7 +167,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -179,7 +185,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -196,7 +203,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -213,7 +221,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -230,7 +239,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -247,7 +257,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -264,7 +275,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -281,7 +293,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -298,7 +311,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -315,7 +329,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -332,7 +347,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       },
@@ -349,7 +365,8 @@
           "item1": {
             "name": "test",
             "description": "test",
-            "isAvailable": false
+            "isAvailable": false,
+            "interactionType": 0
           }
         }
       }

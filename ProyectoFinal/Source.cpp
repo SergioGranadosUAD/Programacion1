@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 #include "WorldMap.h"
@@ -12,11 +13,12 @@ using std::string;
 using std::ifstream;
 using std::ofstream;
 using std::to_string;
+using std::istringstream;
 
 using json = nlohmann::json;
 
 WorldMap* NewGame();
-void SaveGame();
+void SaveGame(const WorldMap wm);
 void LoadGame();
 void ExitGame();
 void StartGame(WorldMap* worldMap);
@@ -28,12 +30,13 @@ void ToLowerString(string& s);
 
 int main() {
 	bool salida = true;
-	cout << "Bienvenido a este juego de aventura de texto sencillo." << endl;
-	cout << "Escriba 'Iniciar' para empezar una nueva partida." << endl;
-	cout << "Escriba 'Continuar' para cargar una partida anteriormente guardada." << endl;
-	cout << "Escriba 'Salir' para terminar el programa." << endl;
 
 	while (salida) {
+		cout << "Bienvenido a este juego de aventura de texto sencillo." << endl;
+		cout << "Escriba 'Iniciar' para empezar una nueva partida." << endl;
+		cout << "Escriba 'Continuar' para cargar una partida anteriormente guardada." << endl;
+		cout << "Escriba 'Salir' para terminar el programa." << endl;
+
 		string seleccion = "";
 		cout << "> ";
 		cin >> seleccion;
@@ -53,6 +56,7 @@ int main() {
 			cout << "Se introdujo una palabra no reconocida." << endl;
 		}
 
+		system("cls");
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
 	}
@@ -87,8 +91,15 @@ WorldMap* NewGame() {
 	return wm;
 }
 
-void SaveGame() {
+void SaveGame(const WorldMap wm) {
+	string outputFileName = "SavedGame.json";
+	ofstream outputFile{ outputFileName };
 
+	if (!outputFile) {
+		//error("No se pudo abrir el archivo de entrada.");
+	}
+
+	json saveData;
 }
 
 void LoadGame() {
@@ -100,7 +111,110 @@ void ExitGame() {
 }
 
 void StartGame(WorldMap* worldMap) {
-	worldMap->PrintMap();
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
+	system("cls");
+
+	bool loop = true;
+	string input = "";
+	istringstream iss;
+	string comando = "";
+	int inputCount = 0;
+
+	cout << "Escriba 'Ayuda' para ver los comandos disponibles." << endl;
+	cout << worldMap->PrintStartingText() << endl;
+	while (loop) {
+		input = "";
+		cout << "> ";
+		getline(cin, input);
+		ToLowerString(input);
+		iss.str(input);
+		comando = "";
+		inputCount = 0;
+
+		while (iss >> comando) {
+			++inputCount;
+		}
+
+		iss.clear();
+		iss.str(input);
+
+		iss >> comando;
+
+		if (comando == "moverse") {
+			if (inputCount > 1) {
+				iss >> comando;
+				ToLowerString(comando);
+				worldMap->ValidatePlayerMovement(comando);
+			}
+			else {
+				cout << "Moverse a donde?" << endl;
+			}
+			
+		}
+		else if (comando == "inspeccionar") {
+			if (inputCount > 1) {
+				iss >> comando;
+				ToLowerString(comando);
+				//inspeccionarobjeto()
+			}
+			else {
+				cout << "Inspeccionar que?" << endl;
+			}
+		}
+		else if (comando == "interactuar") {
+			if (inputCount > 1) {
+				iss >> comando;
+				ToLowerString(comando);
+				//interactuarobjeto()
+			}
+			else {
+				cout << "Interactuar con que?" << endl;
+			}
+		}
+		else if (comando == "ayuda") {
+			cout << "Comandos disponibles: " << endl;
+			cout << "Moverse <Arriba/Abajo/Derecha/Izquierda>, Inspeccionar <Objeto/Cuarto>, Interactuar <Objeto>, Imprimir mapa, Guardar, Ayuda, Salir." << endl;
+		}
+		else if (comando == "imprimir") {
+			if (inputCount > 1) {
+				iss >> comando;
+				ToLowerString(comando);
+				if (comando == "mapa") {
+					worldMap->PrintMap();
+				}
+				else {
+					cout << "Solo se puede imprimir el mapa." << endl;
+				}
+			}
+			else {
+				cout << "Imprimir que?" << endl;
+			}
+		}
+		else if (comando == "guardar") {
+			SaveGame();
+		}
+		else if (comando == "salir") {
+			cout << "Esta seguro de que desea salir de la partida? Se perdera el progreso no guardado" << endl
+				<< ". Escriba 'Si' para proceder, en caso contrario escriba cualquier otra cosa para seguir con el juego." << endl;
+			string respuesta = "";
+			cin >> respuesta;
+			ToLowerString(respuesta);
+			if (respuesta == "si") {
+				loop = false;
+			}
+			else {
+				cout << "Se ha elegido resumir el juego." << endl;
+			}
+		}
+		else {
+			cout << "Se introdujo un comando no reconocido." << endl;
+		}
+	}
+	
+	system("cls");
+	delete worldMap;
+	cout << "Se ha terminado la partida." << endl;
 }
 
 void ToLowerString(string& s) {
@@ -138,7 +252,8 @@ Items constructItem(const json& data, const string& actualRoom, const string& it
 	string itemName = data["worldMap"]["rooms"][actualRoom]["items"][actualItem]["name"];
 	string itemDescription = data["worldMap"]["rooms"][actualRoom]["items"][actualItem]["description"];
 	bool itemIsAvaiable = data["worldMap"]["rooms"][actualRoom]["items"][actualItem]["isAvailable"];
-	return Items{itemName, itemDescription, itemIsAvaiable};
+	int itemInteractionType = data["worldMap"]["rooms"][actualRoom]["items"][actualItem]["interactionType"];
+	return Items{itemName, itemDescription, itemIsAvaiable, itemInteractionType};
 }
 
 Player* constructPlayer(const json& data) {

@@ -10,16 +10,19 @@ using std::endl;
 
 class WorldMap {
 public:
-	//WorldMap(int sizeX, int sizeY, Player hero, vector<Room> rooms);
+	//WorldMap(int sizeX, int sizeY, Player* hero, vector<Room*> rooms);
 	~WorldMap();
 	void PrintMap();
+	void ValidatePlayerMovement(const string& dir);
+	string PrintStartingText();
+	
 
 	int m_sizeX;
 	int m_sizeY;
-	Player* hero;
+	Player* m_hero;
 
-	vector<Room*> rooms;
+	vector<Room*> m_rooms;
 
 private:
-	
+	Room* GetRoomAtPos(const int& posX, const int& posY);
 };
