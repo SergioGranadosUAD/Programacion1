@@ -10,7 +10,7 @@ class Room {
 public:
 	//Room() {};
 	//~Room() {};
-	bool checkMovement(const string& dir);
+	bool CheckMovement(const string& dir);
 
 	int m_posX;
 	int m_posY;

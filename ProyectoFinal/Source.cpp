@@ -151,7 +151,7 @@ void StartGame(WorldMap* worldMap) {
 
 		iss >> comando;
 
-		if (comando == "moverse") {
+		if (comando == "mover") {
 			if (inputCount > 1) {
 				iss >> comando;
 				ToLowerString(comando);
@@ -166,7 +166,7 @@ void StartGame(WorldMap* worldMap) {
 			if (inputCount > 1) {
 				iss >> comando;
 				ToLowerString(comando);
-				//inspeccionarobjeto()
+				worldMap->InspectObject(comando);
 			}
 			else {
 				cout << "Inspeccionar que?" << endl;
@@ -184,7 +184,7 @@ void StartGame(WorldMap* worldMap) {
 		}
 		else if (comando == "ayuda") {
 			cout << "Comandos disponibles: " << endl;
-			cout << "Moverse <Arriba/Abajo/Derecha/Izquierda>, Inspeccionar <Objeto/Cuarto>, Interactuar <Objeto>, Imprimir mapa, Guardar, Ayuda, Salir." << endl;
+			cout << "Mover <Arriba/Abajo/Derecha/Izquierda>, Inspeccionar <Objeto/Cuarto>, Interactuar <Objeto>, Imprimir mapa, Guardar, Ayuda, Salir." << endl;
 		}
 		else if (comando == "imprimir") {
 			if (inputCount > 1) {
@@ -200,6 +200,9 @@ void StartGame(WorldMap* worldMap) {
 			else {
 				cout << "Imprimir que?" << endl;
 			}
+		}
+		else if (comando == "inventario") {
+			worldMap->ShowInventory();
 		}
 		else if (comando == "guardar") {
 			SaveGame(worldMap);

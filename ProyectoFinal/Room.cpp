@@ -1,6 +1,6 @@
 #include "Room.h"
 
-bool Room::checkMovement(const string& dir) {
+bool Room::CheckMovement(const string& dir) {
 	if (dir == "derecha" && m_canMoveRight) {
 		return true;
 	}

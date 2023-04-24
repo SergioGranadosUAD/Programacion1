@@ -14,6 +14,9 @@ public:
 	~WorldMap();
 	void PrintMap();
 	void ValidatePlayerMovement(const string& dir);
+	void InspectObject(const string& object);
+	void CheckObjectInteraction(const string& object);
+	void ShowInventory();
 	string PrintStartingText();
 	
 

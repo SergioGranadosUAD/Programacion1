@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::movePlayer(const string& dir) {
+void Player::MovePlayer(const string& dir) {
 	if (dir == "derecha") {
 		posX += 1;
 	}
@@ -13,4 +13,8 @@ void Player::movePlayer(const string& dir) {
 	else if (dir == "abajo") {
 		posY += 1;
 	}
+}
+
+void Player::UpdatePlayerInventory(const string& item) {
+	inventory[item] = true;
 }

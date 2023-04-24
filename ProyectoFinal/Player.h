@@ -7,7 +7,8 @@ using std::map;
 
 class Player {
 public:
-	void movePlayer(const string& dir);
+	void MovePlayer(const string& dir);
+	void UpdatePlayerInventory(const string& item);
 
 	int posX;
 	int posY;

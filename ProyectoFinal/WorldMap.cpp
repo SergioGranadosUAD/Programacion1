@@ -47,13 +47,13 @@ void WorldMap::ValidatePlayerMovement(const string& dir){
 	if (dir == "derecha" || dir == "izquierda" || dir == "arriba" || dir == "abajo") {
 		Room* playerRoom = GetRoomAtPos(m_hero->posX, m_hero->posY);
 
-		if (playerRoom->checkMovement(dir)) {
-			m_hero->movePlayer(dir);
+		if (playerRoom->CheckMovement(dir)) {
+			m_hero->MovePlayer(dir);
 			playerRoom = GetRoomAtPos(m_hero->posX, m_hero->posY);
 			if (!playerRoom->m_isExplored) {
 				playerRoom->m_isExplored = true;
 			}
-			cout << playerRoom->m_description << endl;
+			cout << playerRoom->m_description << endl << endl;
 		}
 		else {
 			cout << "No se puede mover en ese sentido." << endl;
@@ -76,4 +76,63 @@ Room* WorldMap::GetRoomAtPos(const int& posX, const int& posY) {
 string WorldMap::PrintStartingText() {
 	Room* playerRoom = GetRoomAtPos(m_hero->posX, m_hero->posY);
 	return playerRoom->m_description;
+}
+
+void WorldMap::InspectObject(const string& object) {
+	Room* playerRoom = GetRoomAtPos(m_hero->posX, m_hero->posY);
+	if (object == "cuarto") {
+		if (playerRoom->m_roomItems[0] != "empty") {
+			cout << "Al observar detenidamente el cuarto has podido encontrar los siguientes objetos: ";
+			for (const Items& item : playerRoom->m_roomItems) {
+				if (item.m_isAvailable) {
+					cout << item << ", ";
+				}
+			}
+		}
+		else {
+			cout << "Al observar detenidamente el cuarto no pudiste encontrar ningun objeto relevante.";
+		}
+	}
+	else {
+		bool itemFound = false;
+		for (const Items& item : playerRoom->m_roomItems) {
+			if (object == item) {
+				cout << item.m_description;
+				itemFound = true;
+			}
+		}
+		if (!itemFound) {
+			cout << "No se ha encontrado ese objeto.";
+		}
+	}
+	cout << endl << endl;
+}
+
+void WorldMap::CheckObjectInteraction(const string& object) {
+	Room* playerRoom = GetRoomAtPos(m_hero->posX, m_hero->posY);
+	string returnedItem = "";
+	bool itemFound = false;
+	for (Items& item : playerRoom->m_roomItems) {
+		if(item == object){
+			//returnedItem
+			itemFound = true;
+		}
+	}
+	if (!itemFound) {
+		cout << "No se ha encontrado ese objeto.";
+	}
+
+	if (returnedItem != "") {
+		m_hero->UpdatePlayerInventory(returnedItem);
+	}
+	cout << endl << endl;
+}
+void WorldMap::ShowInventory() {
+	cout << "Tengo los siguientes objetos en mi inventario: ";
+	for (const auto& item : m_hero->inventory) {
+		if (item.second) {
+			cout << item.first << ", ";
+		}
+	}
+	cout << endl << endl;
 }
