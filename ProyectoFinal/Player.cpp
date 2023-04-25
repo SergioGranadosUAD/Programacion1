@@ -16,5 +16,14 @@ void Player::MovePlayer(const string& dir) {
 }
 
 void Player::UpdatePlayerInventory(const string& item) {
-	inventory[item] = true;
+	if (inventory[item]) {
+		inventory[item] = false;
+	}
+	else {
+		inventory[item] = true;
+	}
+}
+
+bool Player::FindItemInInventory(const string& item) {
+	return inventory.find(item)->second;
 }

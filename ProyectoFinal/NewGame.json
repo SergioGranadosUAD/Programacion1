@@ -51,7 +51,7 @@
         "items": {
           "item1": {
             "name": "tuberia",
-            "description": "Al observar detenidamente la tuberia puedes observar que le falta una valvula. Te preguntas a donde estara conectada la tuberia.",
+            "description": "Al observar detenidamente la tuberia puedes observar que le falta una valvula y que tiene una gran presion almacenada, lo que parece peligroso. Te preguntas a donde estara conectada la tuberia.",
             "isAvailable": true,
             "interactionType": 0
           }
@@ -111,8 +111,8 @@
           },
           "item2": {
             "name": "transformador",
-            "description": "Al observar detenidamente este transformador puedes notar que al prender el transformador se abrio una compuerta en la que parece haber una llave.\nA pesar de esto parece una muy mala idea tratar de agarrarla sin tener alguna clase de proteccion.",
-            "isAvailable": false,
+            "description": "Este transformador se encuentra apagado, parece ser que la palanca cercana tenga algo que ver con este.",
+            "isAvailable": true,
             "interactionType": 0
           }
         }
@@ -369,6 +369,17 @@
           }
         }
       }
+    },
+    "triggers": {
+      "leverIEnabled": false,
+      "leverIIEnabled": false,
+      "leverIIIEnabled": false,
+      "gasLeverEnabled": false,
+      "transformerLeverEnabled": false,
+      "diamondsKeyPlaced": false,
+      "heartsKeyPlaced": false,
+      "clubsKeyPlaced": false,
+      "spadesKeyPlaced": false
     }
   },
 
@@ -376,15 +387,15 @@
     "posX": 3,
     "posY": 3,
     "inventory": {
-      "llave diamantes": false,
-      "llave corazones": false,
-      "llave treboles": false,
-      "llave picas": false,
-      "moneda": false,
-      "guantes de electricista": false,
-      "martillo": false,
-      "nota": false,
-      "valvula": false
+      "Llave de diamantes": false,
+      "Llave de corazones": false,
+      "Llave de treboles": false,
+      "Llave de picas": false,
+      "Moneda antigua": false,
+      "Guantes de electricista": false,
+      "Martillo": false,
+      "Nota de caja fuerte": false,
+      "Valvula de gas": false
     }
   }
 }

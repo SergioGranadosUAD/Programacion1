@@ -22,13 +22,15 @@ void SaveGame(const WorldMap* wm);
 void ExitGame();
 void StartGame(WorldMap* worldMap);
 
-Room* constructRoom(const json& data, const string& i);
-Items constructItem(const json& data, const string& actualRoom, const string& itemIterator);
-Player* constructPlayer(const json& data);
+Room* ConstructRoom(const json& data, const string& i);
+Items ConstructItem(const json& data, const string& actualRoom, const string& itemIterator);
+Player* ConstructPlayer(const json& data);
+map<string, bool> ConstructTriggers(const json& data);
 
-void saveRooms(json& saveData, const WorldMap* wm);
-void saveItems(json& saveData, const WorldMap* wm, const string& actualRoom, const Room*& room);
-void savePlayer(json& saveData, const WorldMap* wm);
+void SaveRooms(json& saveData, const WorldMap* wm);
+void SaveItems(json& saveData, const WorldMap* wm, const string& actualRoom, const Room*& room);
+void SavePlayer(json& saveData, const WorldMap* wm);
+void SaveTriggers(json& saveData, const WorldMap* wm);
 
 void ToLowerString(string& s);
 
@@ -80,17 +82,19 @@ WorldMap* NewGame(const string& loadMode) {
 	int worldMapSizeX = data["worldMap"]["sizeX"];
 	int worldMapSizeY = data["worldMap"]["sizeY"];
 
-	Player* worldMapPlayer = constructPlayer(data);
+	Player* worldMapPlayer = ConstructPlayer(data);
 
 	vector<Room*> gameRooms;
 	
 	int roomIterator = 1;
 	while (data["worldMap"]["rooms"].contains("room" + to_string(roomIterator))) {
-		gameRooms.push_back(constructRoom(data, to_string(roomIterator)));
+		gameRooms.push_back(ConstructRoom(data, to_string(roomIterator)));
 		++roomIterator;
 	}
 
-	WorldMap* wm = new WorldMap { worldMapSizeX, worldMapSizeY, worldMapPlayer, gameRooms };
+	map<string, bool> triggers = ConstructTriggers(data);
+
+	WorldMap* wm = new WorldMap { worldMapSizeX, worldMapSizeY, worldMapPlayer, gameRooms, triggers };
 	
 	return wm;
 }
@@ -108,8 +112,9 @@ void SaveGame(const WorldMap* wm) {
 	saveData["worldMap"]["sizeX"] = wm->m_sizeX;
 	saveData["worldMap"]["sizeY"] = wm->m_sizeY;
 
-	saveRooms(saveData, wm);
-	savePlayer(saveData, wm);
+	SaveRooms(saveData, wm);
+	SavePlayer(saveData, wm);
+	SaveTriggers(saveData, wm);
 
 	outputFile << std::setw(4) << saveData;
 
@@ -236,7 +241,7 @@ void ToLowerString(string& s) {
 	}
 }
 
-Room* constructRoom(const json& data, const string& i) {
+Room* ConstructRoom(const json& data, const string& i) {
 	string actualRoom = "room" + i;
 
 	int roomPosX = data["worldMap"]["rooms"][actualRoom]["posX"];
@@ -251,7 +256,7 @@ Room* constructRoom(const json& data, const string& i) {
 	vector<Items> roomItems;
 	int itemIterator = 1;
 	while (data["worldMap"]["rooms"][actualRoom]["items"].contains("item" + to_string(itemIterator))) {
-		roomItems.push_back(constructItem(data, actualRoom, to_string(itemIterator)));
+		roomItems.push_back(ConstructItem(data, actualRoom, to_string(itemIterator)));
 		++itemIterator;
 	}
 
@@ -259,7 +264,7 @@ Room* constructRoom(const json& data, const string& i) {
 	roomCanMoveBackwards, roomIsExplored, roomItems};
 }
 
-Items constructItem(const json& data, const string& actualRoom, const string& itemIterator) {
+Items ConstructItem(const json& data, const string& actualRoom, const string& itemIterator) {
 	string actualItem = "item" + itemIterator;
 
 	string itemName = data["worldMap"]["rooms"][actualRoom]["items"][actualItem]["name"];
@@ -269,25 +274,30 @@ Items constructItem(const json& data, const string& actualRoom, const string& it
 	return Items{itemName, itemDescription, itemIsAvaiable, itemInteractionType};
 }
 
-Player* constructPlayer(const json& data) {
+Player* ConstructPlayer(const json& data) {
 	int playerPosX = data["player"]["posX"];
 	int playerPosY = data["player"]["posY"];
 
 	map<string, bool> playerInventory;
-	playerInventory["llave diamantes"] = data["player"]["inventory"]["llave diamantes"];
-	playerInventory["llave corazones"] = data["player"]["inventory"]["llave corazones"];
-	playerInventory["llave treboles"] = data["player"]["inventory"]["llave treboles"];
-	playerInventory["llave picas"] = data["player"]["inventory"]["llave picas"];
-	playerInventory["moneda"] = data["player"]["inventory"]["moneda"];
-	playerInventory["guantes de electricista"] = data["player"]["inventory"]["guantes de electricista"];
-	playerInventory["martillo"] = data["player"]["inventory"]["martillo"];
-	playerInventory["nota"] = data["player"]["inventory"]["nota"];
-	playerInventory["valvula"] = data["player"]["inventory"]["valvula"];
+
+	for (auto& it : data["player"]["inventory"].items()) {
+		playerInventory[it.key()] = it.value();
+	}
 
 	return new Player{ playerPosX, playerPosY, playerInventory };
 }
 
-void saveRooms(json& saveData, const WorldMap* wm) {
+map<string, bool> ConstructTriggers(const json& data) {
+	map<string, bool> worldMapTriggers;
+
+	for (auto& it : data["worldMap"]["triggers"].items()) {
+		worldMapTriggers[it.key()] = it.value();
+	}
+
+	return worldMapTriggers;
+}
+
+void SaveRooms(json& saveData, const WorldMap* wm) {
 	int roomIterator = 1;
 	for (const Room* r : wm->m_rooms) {
 		string actualRoom = "room" + to_string(roomIterator);
@@ -300,12 +310,12 @@ void saveRooms(json& saveData, const WorldMap* wm) {
 		saveData["worldMap"]["rooms"][actualRoom]["canMoveBackwards"] = r->m_canMoveBackwards;
 		saveData["worldMap"]["rooms"][actualRoom]["isExplored"] = r->m_isExplored;
 
-		saveItems(saveData, wm, actualRoom, r);
+		SaveItems(saveData, wm, actualRoom, r);
 		++roomIterator;
 	}
 }
 
-void saveItems(json& saveData, const WorldMap* wm, const string& actualRoom, const Room*& room) {
+void SaveItems(json& saveData, const WorldMap* wm, const string& actualRoom, const Room*& room) {
 	int itemIterator = 1;
 	for (const Items& i : room->m_roomItems) {
 		string actualItem = "item" + to_string(itemIterator);
@@ -317,12 +327,18 @@ void saveItems(json& saveData, const WorldMap* wm, const string& actualRoom, con
 	}
 }
 
-void savePlayer(json& saveData, const WorldMap* wm) {
+void SavePlayer(json& saveData, const WorldMap* wm) {
 	saveData["player"]["posX"] = wm->m_hero->posX;
 	saveData["player"]["posY"] = wm->m_hero->posY;
 
 
 	for (const auto& pair : wm->m_hero->inventory) {
 		saveData["player"]["inventory"][pair.first] = pair.second;
+	}
+}
+
+void SaveTriggers(json& saveData, const WorldMap* wm) {
+	for (const auto& pair : wm->m_triggers) {
+		saveData["worldMap"]["triggers"][pair.first] = pair.second;
 	}
 }

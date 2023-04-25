@@ -10,12 +10,6 @@ class Items {
 public:
 	Items(string name, string description, bool isAvailable, int interactionType);
 
-	friend bool operator== (const string& name, const Items& item);
-	friend bool operator== (const Items& item, const string& name);
-	friend bool operator!= (const string& name, const Items& item);
-	friend bool operator!= (const Items& item, const string& name);
-	friend ostream& operator<<(ostream& os, const Items& item);
-
 	enum INTERACTION_TYPE {
 		PICKUP = 0,
 		SLOT_MACHINE = 1,
@@ -25,11 +19,18 @@ public:
 		LEVER_I = 5,
 		LEVER_II = 6,
 		LEVER_III = 7,
-		PEDESTAL_SPADE_KEY = 8,
+		PEDESTAL_CLUBS_KEY = 8,
 		GAS_LEVER = 9,
 		PIPE = 10,
-		STARTING_PEDESTAL = 11
+		GIANT_POT = 11,
+		STARTING_PEDESTAL = 12
 	};
+
+	friend bool operator== (const string& name, const Items& item);
+	friend bool operator== (const Items& item, const string& name);
+	friend bool operator!= (const string& name, const Items& item);
+	friend bool operator!= (const Items& item, const string& name);
+	friend ostream& operator<<(ostream& os, const Items& item);
 
 	string m_name;
 	string m_description;
