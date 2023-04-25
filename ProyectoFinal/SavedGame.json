@@ -1,10 +1,15 @@
 {
     "player": {
         "inventory": {
-            "item1": false,
-            "item2": false,
-            "item3": false,
-            "item4": false
+            "Guantes de electricista": false,
+            "Llave de corazones": false,
+            "Llave de diamantes": false,
+            "Llave de picas": false,
+            "Llave de treboles": false,
+            "Martillo": false,
+            "Moneda antigua": false,
+            "Nota de codigo de cofre": false,
+            "Valvula de gas": false
         },
         "posX": 3,
         "posY": 3
@@ -16,26 +21,14 @@
                 "canMoveForward": false,
                 "canMoveLeft": false,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Te encuentras en un cuarto con una sola palanca en la pared. Ademas de eso solo puedes apreciar la escotilla de regreso hacia abajo.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
-                    },
-                    "item2": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
-                    },
-                    "item3": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al inspeccionar esta palanca puedes ver una placa que tiene el numeral romano 'I'. Te preguntas para que servira.",
+                        "interactionType": 8,
+                        "isAvailable": true,
+                        "name": "palanca"
                     }
                 },
                 "posX": 1,
@@ -46,14 +39,14 @@
                 "canMoveForward": false,
                 "canMoveLeft": false,
                 "canMoveRight": true,
-                "description": "placeholder",
+                "description": "Al entrar a este cuarto notas otra palanca en el centro de la pared. Ademas de eso, notas una escalera que baja a un piso inferior, ademas de una puerta a la derecha.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente esta palanca encuentras una placa que tiene grabada la inscripcion 'Regulacion de gas'. Tal vez este relacionado con la tuberia del piso superior.",
+                        "interactionType": 12,
+                        "isAvailable": true,
+                        "name": "palanca"
                     }
                 },
                 "posX": 2,
@@ -64,14 +57,14 @@
                 "canMoveForward": true,
                 "canMoveLeft": false,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Entras a un cuarto en el que hay una moneda tirada en el suelo. No hay nada mas en este cuarto, mas que la escalera por la que bajaste.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
+                        "description": "Al observar detenidamente la moneda te das cuenta de que se ve bastante desgastada. Te preguntas quien la habra dejado ahi y para que servira.",
                         "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "isAvailable": true,
+                        "name": "moneda"
                     }
                 },
                 "posX": 2,
@@ -82,14 +75,14 @@
                 "canMoveForward": true,
                 "canMoveLeft": false,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Entras al cuarto y te encuentras una palanca en en centro de la habitacion. Notas escotillas para subir y bajar de pisos.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente esta palanca notas una placa con la leyenda 'III'. Posiblemente ya viste otras similares, y te preguntas cuantas mas habra.",
+                        "interactionType": 10,
+                        "isAvailable": true,
+                        "name": "palanca"
                     }
                 },
                 "posX": 3,
@@ -100,14 +93,14 @@
                 "canMoveForward": true,
                 "canMoveLeft": true,
                 "canMoveRight": true,
-                "description": "placeholder",
+                "description": "En esta habitacion puedes apreciar un martillo recargado contra una de las paredes. Ademas, notas puertas tanto a la derecha como a la izquierda, ademas de una escotilla que lleva a un nivel superior.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente este martillo puedes darte cuenta de lo pesado que es. Puede tener mucha utilidad para romper algo fragil.",
+                        "interactionType": 2,
+                        "isAvailable": true,
+                        "name": "martillo"
                     }
                 },
                 "posX": 3,
@@ -118,14 +111,14 @@
                 "canMoveForward": false,
                 "canMoveLeft": false,
                 "canMoveRight": true,
-                "description": "placeholder",
+                "description": "Al entrar a este cuarto te percatas de un tragamonedas en el centro de este, el cual parece tener una compuerta. La unica salida es la puerta por la que entraste.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente el tragamonedas llegas a la conclusion de que darle una moneda a la maquina posiblemente abra la compuerta que tiene.",
+                        "interactionType": 4,
+                        "isAvailable": true,
+                        "name": "tragamonedas"
                     }
                 },
                 "posX": 2,
@@ -136,14 +129,14 @@
                 "canMoveForward": false,
                 "canMoveLeft": true,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "En este cuarto solo encuentras una valvula tirada en el suelo. Te das cuenta de que la unica puerta del cuarto es por la cual entraste.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente la valvula logras leer una inscripcion que dice 'Valvula de gas'.",
+                        "interactionType": 3,
+                        "isAvailable": true,
+                        "name": "valvula"
                     }
                 },
                 "posX": 4,
@@ -154,14 +147,14 @@
                 "canMoveForward": false,
                 "canMoveLeft": true,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Este pasillo no parece contener nada fuera de lo usual, ademas una puerta a la izquierda y una escotilla que baja a un nivel inferior.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
+                        "description": "looking for something?",
                         "interactionType": 0,
                         "isAvailable": false,
-                        "name": "test"
+                        "name": "empty"
                     }
                 },
                 "posX": 4,
@@ -172,14 +165,14 @@
                 "canMoveForward": true,
                 "canMoveLeft": false,
                 "canMoveRight": true,
-                "description": "placeholder",
+                "description": "Este pasillo se encuentra vacio, salvo por una escotilla que lleva a un nivel superior y una puerta a la derecha.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
+                        "description": "looking for something?",
                         "interactionType": 0,
                         "isAvailable": false,
-                        "name": "test"
+                        "name": "empty"
                     }
                 },
                 "posX": 4,
@@ -190,14 +183,14 @@
                 "canMoveForward": true,
                 "canMoveLeft": true,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Te encuentras con otro pasillo mas, el cual contiene escotillas para subir y bajar de nivel, ademas de una puerta a la izquierda.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
+                        "description": "looking for something?",
                         "interactionType": 0,
                         "isAvailable": false,
-                        "name": "test"
+                        "name": "empty"
                     }
                 },
                 "posX": 5,
@@ -208,14 +201,14 @@
                 "canMoveForward": false,
                 "canMoveLeft": false,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Al subir te encuentras con una unica palanca en el centro de la sala. La unica salida es la escotilla por la cual entraste.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente esta palanca notas una placa con la inscripcion 'II'. Te preguntas para que servira.",
+                        "interactionType": 9,
+                        "isAvailable": true,
+                        "name": "palanca"
                     }
                 },
                 "posX": 5,
@@ -226,14 +219,14 @@
                 "canMoveForward": true,
                 "canMoveLeft": false,
                 "canMoveRight": true,
-                "description": "placeholder",
+                "description": "Te encuentras en un cuarto con un cofre cerrado con un candado de codigo. Puedes notar una escalera hacia arriba y una puerta a la derecha.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al inspeccionar este cofre te das cuenta de que necesitas un codigo para abrirlo.",
+                        "interactionType": 7,
+                        "isAvailable": true,
+                        "name": "cofre"
                     }
                 },
                 "posX": 1,
@@ -244,14 +237,14 @@
                 "canMoveForward": true,
                 "canMoveLeft": false,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Al bajar a esta habitacion te encuentras con un gran jarron en el centro de la habitacion. La unica salida que puedes apreciar es la escotilla por la cual bajaste.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente este jarron te das cuenta de lo pesado que es, haciendo imposible moverlo. Ademas, notas una parte agrietada, lo que te hace preguntarte si se puede romper de alguna manera.",
+                        "interactionType": 14,
+                        "isAvailable": true,
+                        "name": "jarron"
                     }
                 },
                 "posX": 5,
@@ -266,8 +259,8 @@
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "Al observar detenidamente la tuberia puedes observar que le falta una valvula. Te preguntas a donde estara conectada la tuberia.",
-                        "interactionType": 0,
+                        "description": "Al observar detenidamente la tuberia puedes observar que le falta una valvula y que tiene una gran presion almacenada, lo que parece peligroso. Te preguntas a donde estara conectada la tuberia.",
+                        "interactionType": 13,
                         "isAvailable": true,
                         "name": "tuberia"
                     }
@@ -285,7 +278,7 @@
                 "items": {
                     "item1": {
                         "description": "Al observar el pedestal detenidamente puedes apreciar que cada agujero de llave tiene una figura correspondiente a una baraja. (corazon, diamante, trebol y pica).",
-                        "interactionType": 0,
+                        "interactionType": 15,
                         "isAvailable": true,
                         "name": "pedestal"
                     }
@@ -302,10 +295,10 @@
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
+                        "description": "looking for something?",
                         "interactionType": 0,
                         "isAvailable": false,
-                        "name": "test"
+                        "name": "empty"
                     }
                 },
                 "posX": 4,
@@ -316,14 +309,20 @@
                 "canMoveForward": false,
                 "canMoveLeft": true,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Te encuentras en un cuarto con una palanca y lo que parecer ser un transformador. La unica salida de este cuarto es por la puerta por la que entraste.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente esta palanca puedes ver una placa que indica que se usa para encender el transformador.",
+                        "interactionType": 5,
+                        "isAvailable": true,
+                        "name": "palanca"
+                    },
+                    "item2": {
+                        "description": "Este transformador se encuentra apagado, parece ser que la palanca cercana tenga algo que ver con este.",
+                        "interactionType": 6,
+                        "isAvailable": true,
+                        "name": "transformador"
                     }
                 },
                 "posX": 5,
@@ -334,14 +333,14 @@
                 "canMoveForward": false,
                 "canMoveLeft": false,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Este cuarto se encuentra vacio, pero notas lo que parece ser una compuerta cerrada en el techo. La unica salida es la escotilla por la que entraste.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
+                        "description": "looking for something?",
                         "interactionType": 0,
                         "isAvailable": false,
-                        "name": "test"
+                        "name": "empty"
                     }
                 },
                 "posX": 4,
@@ -352,14 +351,14 @@
                 "canMoveForward": false,
                 "canMoveLeft": false,
                 "canMoveRight": false,
-                "description": "placeholder",
+                "description": "Tras subir por la escotilla anteriormente cerrada lo unico que encuentas en este cuarto parece ser un pedestal el cual contiene un objeto. La unica salida es la escotilla por la que entraste.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
-                        "interactionType": 0,
-                        "isAvailable": false,
-                        "name": "test"
+                        "description": "Al observar detenidamente te das cuenta de que el objeto en el pedestal es una llave con forma de trebol.",
+                        "interactionType": 11,
+                        "isAvailable": true,
+                        "name": "pedestal"
                     }
                 },
                 "posX": 4,
@@ -370,14 +369,14 @@
                 "canMoveForward": true,
                 "canMoveLeft": true,
                 "canMoveRight": true,
-                "description": "placeholder",
+                "description": "Te encuentras en un pasillo vacio, el cual tiene puertas en todas las direcciones.",
                 "isExplored": false,
                 "items": {
                     "item1": {
-                        "description": "test",
+                        "description": "looking for something?",
                         "interactionType": 0,
                         "isAvailable": false,
-                        "name": "test"
+                        "name": "empty"
                     }
                 },
                 "posX": 3,
@@ -385,6 +384,17 @@
             }
         },
         "sizeX": 7,
-        "sizeY": 8
+        "sizeY": 8,
+        "triggers": {
+            "clubsKeyPlaced": false,
+            "diamondsKeyPlaced": false,
+            "gasLeverEnabled": false,
+            "heartsKeyPlaced": false,
+            "leverIEnabled": false,
+            "leverIIEnabled": false,
+            "leverIIIEnabled": false,
+            "spadesKeyPlaced": false,
+            "transformerLeverEnabled": false
+        }
     }
 }

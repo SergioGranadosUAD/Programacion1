@@ -23,8 +23,8 @@ public:
 	void PrintMap();
 	void ValidatePlayerMovement(const string& dir);
 	void InspectObject(const string& object);
-	void CheckObjectInteraction(const string& object);
-	GAME_STATE InteractWithItem(Items& item);
+	GAME_STATE CheckObjectInteraction(const string& object);
+	GAME_STATE InteractWithItem(Items& item, Room* playerRoom);
 	void ShowInventory();
 	string PrintStartingText();
 	

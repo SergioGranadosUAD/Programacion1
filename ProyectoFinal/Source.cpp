@@ -19,7 +19,6 @@ using json = nlohmann::json;
 
 WorldMap* NewGame(const string& loadMode);
 void SaveGame(const WorldMap* wm);
-void ExitGame();
 void StartGame(WorldMap* worldMap);
 
 Room* ConstructRoom(const json& data, const string& i);
@@ -38,7 +37,7 @@ int main() {
 	bool salida = true;
 
 	while (salida) {
-		cout << "Bienvenido a este juego de aventura de texto sencillo." << endl;
+		cout << "Bienvenido a este juego de aventura de texto sencillo." << endl << endl;
 		cout << "Escriba 'Iniciar' para empezar una nueva partida." << endl;
 		cout << "Escriba 'Continuar' para cargar una partida anteriormente guardada." << endl;
 		cout << "Escriba 'Salir' para terminar el programa." << endl;
@@ -70,6 +69,13 @@ int main() {
 	return 0;
 }
 
+/************************************
+* @method:   NewGame
+* @access:   public
+* @return    WorldMap*
+* @brief:    Funcion que se encarga de leer los datos del juego y guardar los datos de este en el heap.
+* @details:  Se encuentra dividida en varias funciones para mayor legibilidad.
+*************************************/
 WorldMap* NewGame(const string& loadMode) {
 	string inputFileName = loadMode;
 	ifstream inputFile { inputFileName };
@@ -99,6 +105,13 @@ WorldMap* NewGame(const string& loadMode) {
 	return wm;
 }
 
+/************************************
+* @method:   SaveGame
+* @access:   public
+* @return    void
+* @brief:    Contrario a NewGame, crea un documento en JSON ocupando los datos del juego.
+* @details:  Debido a las limitaciones de la librería de JSON el documento se encuentra en desorden pero es funcional.
+*************************************/
 void SaveGame(const WorldMap* wm) {
 	string outputFileName = "SavedGame.json";
 	ofstream outputFile{ outputFileName };
@@ -121,10 +134,13 @@ void SaveGame(const WorldMap* wm) {
 	cout << "El juego se ha guardado satisfactoriamente!" << endl;
 }
 
-void ExitGame() {
-
-}
-
+/************************************
+* @method:   StartGame
+* @access:   public
+* @return    void
+* @brief:    Funcion que contiene el loop principal del juego, ocupando el objecto WorldMap obtenido de la funcion NewGame().
+* @details:  Sin detalles.
+*************************************/
 void StartGame(WorldMap* worldMap) {
 	cin.clear();
 	cin.ignore(INT_MAX, '\n');
@@ -136,15 +152,20 @@ void StartGame(WorldMap* worldMap) {
 	string comando = "";
 	int inputCount = 0;
 
+	cout << "\033[32m";
 	cout << "Escriba 'Ayuda' para ver los comandos disponibles." << endl;
 	cout << worldMap->PrintStartingText() << endl;
+	cout << "\033[0m";
+
+	//Loop principal del juego
 	while (loop) {
+		istringstream().swap(iss);
 		input = "";
 		cout << "> ";
 		getline(cin, input);
 		ToLowerString(input);
 		iss.str(input);
-		comando = "";
+		comando = string();
 		inputCount = 0;
 
 		while (iss >> comando) {
@@ -155,6 +176,7 @@ void StartGame(WorldMap* worldMap) {
 		iss.str(input);
 
 		iss >> comando;
+		cout << "\033[32m";
 
 		if (comando == "mover") {
 			if (inputCount > 1) {
@@ -167,6 +189,7 @@ void StartGame(WorldMap* worldMap) {
 			}
 			
 		}
+
 		else if (comando == "inspeccionar") {
 			if (inputCount > 1) {
 				iss >> comando;
@@ -177,20 +200,35 @@ void StartGame(WorldMap* worldMap) {
 				cout << "Inspeccionar que?" << endl;
 			}
 		}
+
+		//Dependiendo del valor de retorno de esta opcion puede terminar el loop del juego.
+		//Cuando se requiere más de una palabra se lee el resto del string stream, y se manda la segunda palabra para evaluacion dependiendo del contexto.
 		else if (comando == "interactuar") {
 			if (inputCount > 1) {
 				iss >> comando;
 				ToLowerString(comando);
-				//interactuarobjeto()
+				WorldMap::GAME_STATE gameState = worldMap->CheckObjectInteraction(comando);
+
+				if (gameState == WorldMap::GAME_OVER) {
+					cout << "Has muerto." << endl;
+					cout << "GAME OVER." << endl;
+					loop = false;
+				}
+				else if (gameState == WorldMap::WIN_CONDITION) {
+					cout << "YOU WIN." << endl;
+					loop = false;
+				}
 			}
 			else {
 				cout << "Interactuar con que?" << endl;
 			}
 		}
+
 		else if (comando == "ayuda") {
 			cout << "Comandos disponibles: " << endl;
-			cout << "Mover <Arriba/Abajo/Derecha/Izquierda>, Inspeccionar <Objeto/Cuarto>, Interactuar <Objeto>, Imprimir mapa, Guardar, Ayuda, Salir." << endl;
+			cout << "Mover <Arriba/Abajo/Derecha/Izquierda>, Inspeccionar <Objeto/Cuarto>, Interactuar <Objeto>, Inventario, Imprimir mapa, Guardar, Ayuda, Salir." << endl << endl;
 		}
+
 		else if (comando == "imprimir") {
 			if (inputCount > 1) {
 				iss >> comando;
@@ -206,12 +244,15 @@ void StartGame(WorldMap* worldMap) {
 				cout << "Imprimir que?" << endl;
 			}
 		}
+
 		else if (comando == "inventario") {
 			worldMap->ShowInventory();
 		}
+
 		else if (comando == "guardar") {
 			SaveGame(worldMap);
 		}
+
 		else if (comando == "salir") {
 			cout << "Esta seguro de que desea salir de la partida? Se perdera el progreso no guardado" << endl
 				<< ". Escriba 'Si' para proceder, en caso contrario escriba cualquier otra cosa para seguir con el juego." << endl;
@@ -228,19 +269,38 @@ void StartGame(WorldMap* worldMap) {
 		else {
 			cout << "Se introdujo un comando no reconocido." << endl;
 		}
+		cout << "\033[0m";
 	}
-	
-	system("cls");
-	delete worldMap;
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
+
 	cout << "Se ha terminado la partida." << endl;
+	cout << "Presione enter para continuar. " << endl;
+	cin.get();
+	delete worldMap;
+	system("cls");
 }
 
+/************************************
+* @method:   ToLowerString
+* @access:   public
+* @return    void
+* @brief:    Función que recibe un string y convierte todos sus caracteres en minusculas.
+* @details:  Se hace el reemplazo directo del string por medio de una referencia.
+*************************************/
 void ToLowerString(string& s) {
 	for (char& c : s) {
 		c = tolower(c);
 	}
 }
 
+/************************************
+* @method:   ConstructRoom
+* @access:   public
+* @return    Room*
+* @brief:    Funcion que lee el documento de json, creando un objeto de tipo Room para su uso por la funcion NewGame().
+* @details:  Estas función a su vez invoca la función ConstructItem() para poblar un vector que forma parte del objeto.
+*************************************/
 Room* ConstructRoom(const json& data, const string& i) {
 	string actualRoom = "room" + i;
 
@@ -264,6 +324,13 @@ Room* ConstructRoom(const json& data, const string& i) {
 	roomCanMoveBackwards, roomIsExplored, roomItems};
 }
 
+/************************************
+* @method:   ConstructItem
+* @access:   public
+* @return    Items
+* @brief:    Función que lee el documento de json y crea un objeto de tipo Items que será almacenado en un vector del objeto Room.
+* @details:  Sin detalles.
+*************************************/
 Items ConstructItem(const json& data, const string& actualRoom, const string& itemIterator) {
 	string actualItem = "item" + itemIterator;
 
@@ -274,6 +341,13 @@ Items ConstructItem(const json& data, const string& actualRoom, const string& it
 	return Items{itemName, itemDescription, itemIsAvaiable, itemInteractionType};
 }
 
+/************************************
+* @method:   ConstructPlayer
+* @access:   public
+* @return    Player*
+* @brief:    Función que lee el documento de json y crea un objeto de tipo Player para su uso por la función de NewGame().
+* @details:  Sin detalles.
+*************************************/
 Player* ConstructPlayer(const json& data) {
 	int playerPosX = data["player"]["posX"];
 	int playerPosY = data["player"]["posY"];
@@ -287,6 +361,13 @@ Player* ConstructPlayer(const json& data) {
 	return new Player{ playerPosX, playerPosY, playerInventory };
 }
 
+/************************************
+* @method:   ConstructTriggers
+* @access:   public
+* @return    map<string, bool>
+* @brief:    Funcion que lee el documento de json y regresa un mapa de strings y booleanos que será usado por la función de NewGame() para crear el mapa del mundo.
+* @details:  Sin detalles.
+*************************************/
 map<string, bool> ConstructTriggers(const json& data) {
 	map<string, bool> worldMapTriggers;
 
@@ -297,6 +378,13 @@ map<string, bool> ConstructTriggers(const json& data) {
 	return worldMapTriggers;
 }
 
+/************************************
+* @method:   SaveRooms
+* @access:   public
+* @return    void
+* @brief:    Funcion que lee los cuartos contenidos en worldMap y guarda la información de estos en un objeto de tipo json.
+* @details:  Se guarda la información directamente por medio de una referencia.
+*************************************/
 void SaveRooms(json& saveData, const WorldMap* wm) {
 	int roomIterator = 1;
 	for (const Room* r : wm->m_rooms) {
@@ -315,6 +403,13 @@ void SaveRooms(json& saveData, const WorldMap* wm) {
 	}
 }
 
+/************************************
+* @method:   Items
+* @access:   public
+* @return    void
+* @brief:    Funcion que lee los items que forman parte de los cuartos y guarda la información de estos en un objeto de tipo json.
+* @details:  Se guarda la información directamente por medio de una referencia.
+*************************************/
 void SaveItems(json& saveData, const WorldMap* wm, const string& actualRoom, const Room*& room) {
 	int itemIterator = 1;
 	for (const Items& i : room->m_roomItems) {
@@ -327,6 +422,13 @@ void SaveItems(json& saveData, const WorldMap* wm, const string& actualRoom, con
 	}
 }
 
+/************************************
+* @method:   SaveRooms
+* @access:   public
+* @return    void
+* @brief:    Funcion que lee la información del jugador contenida en worldMap y guarda la información de este en un objeto de tipo json.
+* @details:  Se guarda la información directamente por medio de una referencia.
+*************************************/
 void SavePlayer(json& saveData, const WorldMap* wm) {
 	saveData["player"]["posX"] = wm->m_hero->posX;
 	saveData["player"]["posY"] = wm->m_hero->posY;
@@ -337,6 +439,13 @@ void SavePlayer(json& saveData, const WorldMap* wm) {
 	}
 }
 
+/************************************
+* @method:   SaveTriggers
+* @access:   public
+* @return    void
+* @brief:    Funcion que lee los el mapa que guarda los triggers de worldMap y guarda la información de estos en un objeto de tipo json.
+* @details:  Se guarda la información directamente por medio de una referencia.
+*************************************/
 void SaveTriggers(json& saveData, const WorldMap* wm) {
 	for (const auto& pair : wm->m_triggers) {
 		saveData["worldMap"]["triggers"][pair.first] = pair.second;

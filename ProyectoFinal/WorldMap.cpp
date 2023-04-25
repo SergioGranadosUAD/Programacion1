@@ -109,20 +109,25 @@ void WorldMap::InspectObject(const string& object) {
 	cout << endl << endl;
 }
 
-void WorldMap::CheckObjectInteraction(const string& object) {
+WorldMap::GAME_STATE WorldMap::CheckObjectInteraction(const string& object) {
 	Room* playerRoom = GetRoomAtPos(m_hero->posX, m_hero->posY);
+	GAME_STATE gameState = NORMAL;
 	string returnedItem = "";
 	bool itemFound = false;
 	for (Items& item : playerRoom->m_roomItems) {
-		if(item == object){
-			InteractWithItem(item);
+		if(item == object && item.m_isAvailable){
+			gameState = InteractWithItem(item, playerRoom);
 			itemFound = true;
+		}
+		else if (item == object) {
+			cout << "Ese objeto no es util de momento." << endl;
 		}
 	}
 	if (!itemFound) {
 		cout << "No se ha encontrado ese objeto." << endl;
 	}
 	cout << endl;
+	return gameState;
 }
 void WorldMap::ShowInventory() {
 	cout << "Tengo los siguientes objetos en mi inventario: ";
@@ -134,15 +139,45 @@ void WorldMap::ShowInventory() {
 	cout << endl << endl;
 }
 
-WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item) {
+WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item, Room* playerRoom) {
+	Room* updatedRoom;
 	switch (item.m_interactionType) {
-	case item.PICKUP:
+	case item.PICKUP_COIN:
+		item.m_isAvailable = false;
+		m_hero->UpdatePlayerInventory("Moneda antigua");
+		playerRoom->UpdateDescription("Ya no queda nada mas en este cuarto. La unica salida es la escalera por la que bajaste.");
+		cout << "Decides agarrar la moneda que se encuentra en el piso, puede que tenga uso mas tarde." << endl;
+		return NORMAL;
+		break;
 
+	case item.PICKUP_GLOVES:
+		item.m_isAvailable = false;
+		m_hero->UpdatePlayerInventory("Guantes de electricista");
+		cout << "Decides agarrar el par de guantes de electricista, debido a que pueden ser utiles." << endl;
+		return NORMAL;
+		break;
+
+	case item.PICKUP_HAMMER:
+		item.m_isAvailable = false;
+		m_hero->UpdatePlayerInventory("Martillo");
+		playerRoom->UpdateDescription("Despues de recoger el martillo ya no queda nada mas en el cuarto. Notas puertas tanto a la derecha como a la izquierda, ademas de una escotilla que lleva a un nivel superior.");
+		cout << "Decides agarrar el martillo que se encuentra en el suelo, tal vez haya algo que se pueda romper." << endl;
+		return NORMAL;
+		break;
+
+	case item.PICKUP_VALVE:
+		item.m_isAvailable = false;
+		m_hero->UpdatePlayerInventory("Valvula de gas");
+		playerRoom->UpdateDescription("Tras recoger la valvula ya no hay nada de utilidad en el cuarto. Te das cuenta de que la unica puerta del cuarto es por la cual entraste.");
+		cout << "Decides agarrar la valvula de gas, debe de poder ocuparse en algun lado." << endl;
 		return NORMAL;
 		break;
 
 	case item.SLOT_MACHINE:
-
+		item.m_isAvailable = false;
+		m_hero->UpdatePlayerInventory("Moneda antigua");
+		m_hero->UpdatePlayerInventory("Guantes de electricista");
+		cout << "Pones la moneda en el tragamonedas y la compuerta de este se abre, revelando un par de guantes de electricista, los cuales decides agarrar." << endl;
 		return NORMAL;
 		break;
 
@@ -151,21 +186,22 @@ WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item) {
 		item.m_isAvailable = false;
 		cout << "Bajas la palanca y puedes notar que el transformador cercano se encendio, abriendo su compuerta." << endl;
 
-		Room* updatedRoom = GetRoomAtPos(4, 2);
-		updatedRoom->m_roomItems[1].m_description = "Al observar detenidamente este transformador puedes notar que al prender el transformador se abrio una compuerta en la que parece haber una llave.\nA pesar de esto parece una muy mala idea tratar de agarrarla sin tener alguna clase de proteccion.";
+		updatedRoom = GetRoomAtPos(5, 3);
+		updatedRoom->m_roomItems[1].m_description = "Al observar detenidamente este transformador puedes notar que al prenderlo se abrio una compuerta en la que parece haber una llave.\nA pesar de esto parece una muy mala idea tratar de agarrarla sin tener alguna clase de proteccion.";
 
 		return NORMAL;
 		break;
 
 	case item.TRANSFORMER:
 		if (m_triggers["transformerLeverEnabled"] && m_hero->FindItemInInventory("Guantes de electricista")) {
+			m_hero->UpdatePlayerInventory("Guantes de electricista");
 			item.m_isAvailable = false;
 			m_hero->UpdatePlayerInventory("Llave de diamantes");
-			cout << "" << endl;
+			cout << "Te pones los guantes de electricista y obtienes la llave de diamantes de forma segura. Probablemente ya no necesites interactuar mas con el transformador." << endl;
 		}
 		else if (m_triggers["transformerLeverEnabled"]) {
 			item.m_isAvailable = false;
-			cout << "" << endl;
+			cout << "A pesar de lo peligroso que es decides intentar agarrar la llave sin ningun tipo de proteccion. Logras tocarla pero en ese instante sientes una fuerte descarga electrica recorriendote y tu vista se desvanece a negro..." << endl;
 			return GAME_OVER;
 		}
 		else {
@@ -175,13 +211,26 @@ WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item) {
 		return NORMAL;
 		break;
 
+	case item.SAFE:
+		if (m_hero->FindItemInInventory("Nota de codigo de cofre")) {
+			item.m_isAvailable = false;
+			m_hero->UpdatePlayerInventory("Nota de codigo de cofre");
+			m_hero->UpdatePlayerInventory("Llave de corazones");
+			cout << "Introduces el codigo en el candado del cofre y lo abres. Dentro de este habia una llave de corazones, la cual decides agarrar." << endl;
+		}
+		else {
+			cout << "Necesitas un codigo para poder abrir este cofre." << endl;
+		}
+		return NORMAL;
+		break;
+
 	case item.LEVER_I:
 		m_triggers["leverIEnabled"] = true;
 		item.m_isAvailable = false;
 		if (m_triggers["leverIEnabled"] && m_triggers["leverIIEnabled"] && m_triggers["leverIIIEnabled"]) {
-			Room* updatedRoom = GetRoomAtPos(4, 2);
+			updatedRoom = GetRoomAtPos(4, 2);
 			updatedRoom->m_canMoveForward = true;
-			updatedRoom->m_description = "En este cuarto encuentras otra palanca en en centro del muro. Parece ser que el sonido fuerte provenia de la escotilla de arriba, la cual ahora se encuentra abierta. Puedo volver por donde vine o subir a la escotilla que se acaba de abrir.";
+			updatedRoom->UpdateDescription("Este cuarto se encuentra vacio. Parece ser que el sonido fuerte provenia de la escotilla de arriba, la cual ahora se encuentra abierta. Puedo volver por donde vine o subir a la escotilla que se acaba de abrir.");
 			cout << "Al bajar la palanca puedes escuchar un 'click' bastante fuerte en otro cuarto." << endl;
 		}
 		else {
@@ -194,9 +243,9 @@ WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item) {
 		m_triggers["leverIIEnabled"] = true;
 		item.m_isAvailable = false;
 		if (m_triggers["leverIEnabled"] && m_triggers["leverIIEnabled"] && m_triggers["leverIIIEnabled"]) {
-			Room* updatedRoom = GetRoomAtPos(4, 2);
+			updatedRoom = GetRoomAtPos(4, 2);
 			updatedRoom->m_canMoveForward = true;
-			updatedRoom->m_description = "En este cuarto encuentras otra palanca en en centro del muro. Parece ser que el sonido fuerte provenia de la escotilla de arriba, la cual ahora se encuentra abierta. Puedo volver por donde vine o subir a la escotilla que se acaba de abrir.";
+			updatedRoom->UpdateDescription("Este cuarto se encuentra vacio. Parece ser que el sonido fuerte provenia de la escotilla de arriba, la cual ahora se encuentra abierta. Puedo volver por donde vine o subir a la escotilla que se acaba de abrir.");
 			cout << "Al bajar la palanca puedes escuchar un 'click' bastante fuerte en otro cuarto." << endl;
 		}
 		else {
@@ -209,9 +258,9 @@ WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item) {
 		m_triggers["leverIIIEnabled"] = true;
 		item.m_isAvailable = false;
 		if (m_triggers["leverIEnabled"] && m_triggers["leverIIEnabled"] && m_triggers["leverIIIEnabled"]) {
-			Room* updatedRoom = GetRoomAtPos(4, 2);
+			updatedRoom = GetRoomAtPos(4, 2);
 			updatedRoom->m_canMoveForward = true;
-			updatedRoom->m_description = "En este cuarto encuentras otra palanca en en centro del muro. Parece ser que el sonido fuerte provenia de la escotilla de arriba, la cual ahora se encuentra abierta. Puedo volver por donde vine o subir a la escotilla que se acaba de abrir.";
+			updatedRoom->UpdateDescription("Este cuarto se encuentra vacio. Parece ser que el sonido fuerte provenia de la escotilla de arriba, la cual ahora se encuentra abierta. Puedo volver por donde vine o subir a la escotilla que se acaba de abrir.");
 			cout << "Al bajar la palanca puedes escuchar un 'click' bastante fuerte en otro cuarto." << endl;
 		}
 		else {
@@ -238,11 +287,12 @@ WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item) {
 		if (m_hero->FindItemInInventory("Valvula de gas") && m_triggers["gasLeverEnabled"]) {
 			m_hero->UpdatePlayerInventory("Valvula de gas");
 			m_hero->UpdatePlayerInventory("Llave de picas");
-			cout << "Intentas poner la valvula de gas y abrir el flujo. Momentos despues sientes un ligero golpe en la cabeza y te das cuenta de que una llave de picas cayo de un ducto en el techo directamente sobre ti. Te preguntas lo peligroso que hubiera sido si no hubieras disminuido el suministro de gas." << endl;
+			cout << "Intentas poner la valvula de gas y abrir el flujo. Momentos despues sientes un ligero golpe en la cabeza y te das cuenta de que una llave de picas cayo de un ducto en el techo directamente sobre ti." <<
+				" Te preguntas lo peligroso que hubiera sido si no hubieras disminuido el suministro de gas." << endl;
 
 		}
 		else if (m_hero->FindItemInInventory("Valvula de gas")) {
-			cout << "A pesar de lo peligroso que parece, decides poner la valvula de gas y abrir el flujo. Momentos despues sientes un fuerte impacto en tu cabeza y tu vision se desvanece a negro." << endl;
+			cout << "A pesar de lo peligroso que parece, decides poner la valvula de gas y abrir el flujo. Momentos despues sientes un fuerte impacto en tu cabeza y tu vision se desvanece a negro..." << endl;
 			return GAME_OVER;
 		}
 		else {
@@ -255,8 +305,8 @@ WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item) {
 		if (m_hero->FindItemInInventory("Martillo")) {
 			item.m_isAvailable = false;
 			m_hero->UpdatePlayerInventory("Martillo");
-			m_hero->UpdatePlayerInventory("Nota de caja fuerte");
-			cout << "Usaste el martillo para romper el jarron gigante, revelando una nota que contiene el codigo de una caja fuerte, decides agarrarlo." << endl;
+			m_hero->UpdatePlayerInventory("Nota de codigo de cofre");
+			cout << "Usaste el martillo para romper el jarron gigante, revelando una nota que contiene el codigo de un candado de codigo, decides agarrarlo." << endl;
 		}
 		else {
 			cout << "Te hace falta algo para romper el jarron." << endl;
@@ -292,6 +342,7 @@ WorldMap::GAME_STATE WorldMap::InteractWithItem(Items& item) {
 		}
 
 		if (m_triggers["diamondsKeyPlaced"] && m_triggers["heartsKeyPlaced"] && m_triggers["clubsKeyPlaced"] && m_triggers["spadesKeyPlaced"]) {
+			cout << "Introduces la ultima llave en su lugar y se escucha un estruendo muy fuerte. De la nada, se empieza a abrir el muro frente a ti, revelado la luz del exterior. Lo has logrado, eres libre." << endl;
 			return WIN_CONDITION;
 		}
 
